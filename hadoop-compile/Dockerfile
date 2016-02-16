@@ -13,7 +13,8 @@ apt-get -y install libprotobuf-dev protobuf-compiler && \
 apt-get -y install snappy libsnappy-dev && \
 apt-get -y install bzip2 libbz2-dev && \
 apt-get -y install libjansson-dev && \
-apt-get -y install fuse libfuse-dev
+apt-get -y install fuse libfuse-dev && \
+apt-get -y install wget
 
 #Download findbugs
 RUN wget -c -O "findbugs-3.0.1.tar.gz" "http://downloads.sourceforge.net/project/findbugs/findbugs/3.0.1/findbugs-3.0.1.tar.gz" && \
@@ -26,13 +27,14 @@ echo 'FINDBUGS_HOME=/usr/local/findbugs-3.0.1/' >> /etc/profile.d/findbugs.sh &&
 chmod +x /etc/profile.d/findbugs.sh
 
 #Download jdk-7u79 and extract to /usr/local/
+RUN apt-get purge openjdk*
 RUN wget -c -O "jdk-7u79-linux-x64.tar.gz" --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz" && \
 tar zxf jdk-7u79-linux-x64.tar.gz -C /usr/local/ && \
 rm jdk-7u79-linux-x64.tar.gz
 #Setup Java environment
 RUN touch /etc/profile.d/java.sh && \
 echo '#!/bin/bash' >> /etc/profile.d/java.sh && \
-echo 'JAVA_HOME=/usr/local/jjdk1.7.0_79/' >> /etc/profile.d/java.sh && \
+echo 'JAVA_HOME=/usr/local/jdk1.7.0_79/' >> /etc/profile.d/java.sh && \
 echo 'PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile.d/java.sh && \
 echo 'export JAVA_HOME PATH' >> /etc/profile.d/java.sh && \
 chmod +x /etc/profile.d/java.sh
