@@ -1,5 +1,5 @@
 # Creates a base ubuntu image with serf and dnsmasq
-FROM ubuntu:latest
+FROM ubuntu:14.04
 
 MAINTAINER Arindam Choudhury <arindam@live.com>
 

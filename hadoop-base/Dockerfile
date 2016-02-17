@@ -10,18 +10,18 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get update && \
 apt-get install -y openssh-server wget
 
-# Download Java nd extract to /usr/local/
-RUN wget -c -O "jdk-8u73-linux-x64.tar.gz" --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u73-b02/jdk-8u73-linux-x64.tar.gz" && \ 
-tar zxf jdk-8u73-linux-x64.tar.gz -C /usr/local/ && \ 
-rm jdk-8u73-linux-x64.tar.gz
+#Download jdk-7u79 and extract to /usr/local/
+RUN apt-get purge openjdk*
+RUN wget -c -O "jdk-7u79-linux-x64.tar.gz" --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz" && \
+tar zxf jdk-7u79-linux-x64.tar.gz -C /usr/local/ && \
+rm jdk-7u79-linux-x64.tar.gz
 #Setup Java environment
-RUN touch /etc/profile.d/java.sh && \ 
-echo '#!/bin/bash' >> /etc/profile.d/java.sh && \ 
-echo 'JAVA_HOME=/usr/local/jdk1.8.0_73/' >> /etc/profile.d/java.sh && \ 
-echo 'PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile.d/java.sh && \ 
-echo 'export JAVA_HOME PATH' >> /etc/profile.d/java.sh && \ 
-chmod +x /etc/profile.d/java.sh && \ 
-source /etc/profile.d/java.sh
+RUN touch /etc/profile.d/java.sh && \
+echo '#!/bin/bash' >> /etc/profile.d/java.sh && \
+echo 'JAVA_HOME=/usr/local/jdk1.7.0_79/' >> /etc/profile.d/java.sh && \
+echo 'PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile.d/java.sh && \
+echo 'export JAVA_HOME PATH' >> /etc/profile.d/java.sh && \
+chmod +x /etc/profile.d/java.sh
 
 
 # Download Hadoop and extract to /usr/local/
@@ -41,11 +41,11 @@ echo 'HADOOP_CONF_DIR=$HADOOP_PREFIX/etc/hadoop' >> /etc/profile.d/hadoop.sh && 
 echo 'YARN_CONF_DIR=$HADOOP_PREFIX/etc/hadoop' >> /etc/profile.d/hadoop.sh && \
 echo 'PATH=$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$PATH' >> /etc/profile.d/hadoop.sh && \ 
 echo 'export HADOOP_PREFIX HADOOP_COMMON_HOME HADOOP_HDFS_HOME HADOOP_MAPRED_HOME HADOOP_YARN_HOME HADOOP_CONF_DIR YARN_CONF_DIR PATH' >> /etc/profile.d/hadoop.sh && \ 
-chmod +x /etc/profile.d/hadoop.sh && \ 
-source /etc/profile.d/hadoop.sh
+chmod +x /etc/profile.d/hadoop.sh && \
+source /etc/profile
 
 # Modify hadoop-env.sh
-RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/local/jdk1.8.0_73\nexport HADOOP_PREFIX=/usr/local/hadoop-2.7.2\nexport HADOOP_HOME=/usr/local/hadoop-2.7.2\n:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
+RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/local/jdk1.7.0_79\nexport HADOOP_PREFIX=/usr/local/hadoop-2.7.2\nexport HADOOP_HOME=/usr/local/hadoop-2.7.2\n:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
 RUN sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop-2.7.2/etc/hadoop/:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
 
 
