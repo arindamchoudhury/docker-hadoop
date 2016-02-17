@@ -6,6 +6,9 @@ ENV TERM linux
 ENV DEBIAN_FRONTEND noninteractive
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
+ENV CONSUL_VERSION 0.6.3
+ENV CONSUL_SHA256 b0532c61fec4a4f6d130c893fd8954ec007a6ad93effbe283a39224ed237e250
+
 RUN apt-get update && \
 apt-get install -y unzip wget
 
@@ -22,5 +25,4 @@ echo 'PATH=/usr/local/consul/:$PATH' >> /etc/profile.d/consul.sh && \
 echo 'export PATH' >> /etc/profile.d/consul.sh && \
 source /etc/profile
 
-
-
+ENTRYPOINT ["/usr/local/consul/consul"]
