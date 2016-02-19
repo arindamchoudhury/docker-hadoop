@@ -10,7 +10,7 @@ ENV CONSUL_VERSION 0.6.3
 ENV CONSUL_SHA256 b0532c61fec4a4f6d130c893fd8954ec007a6ad93effbe283a39224ed237e250
 
 RUN apt-get update && \
-apt-get install -y unzip wget curl && \
+apt-get install -y unzip wget curl vim && \
 apt-get install -y dnsmasq
 
 #add consul dnsmasq config
