@@ -14,7 +14,7 @@ apt-get install -y unzip wget curl vim
 #apt-get install -y dnsmasq dnsutils
 
 #add consul dnsmasq config
-#ADD ./dnsmasq /etc/dnsmasq.d/
+ADD ./dnsmasq/resolv.conf /etc/
 
 # Download and extract consul
 RUN wget -c -O "consul_0.6.3_linux_amd64.zip" "https://releases.hashicorp.com/consul/0.6.3/consul_0.6.3_linux_amd64.zip" && \
