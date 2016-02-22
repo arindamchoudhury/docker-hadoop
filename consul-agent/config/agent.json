@@ -6,6 +6,7 @@
     "ports" : {
         "dns" : 53
     },
+    "domain": "arindamdomain.com",
 	"leave_on_terminate": true,
 	"dns_config": {
 		"allow_stale": true,

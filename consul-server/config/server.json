@@ -3,6 +3,7 @@
 	"ui": true,
     "datacenter": "dc1",
     "recursors" : [ "8.8.8.8" ],
+    "domain": "arindamdomain.com",
     "ports" : {
         "dns" : 53
     },
