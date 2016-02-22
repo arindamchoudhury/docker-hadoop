@@ -1,7 +1,6 @@
 
 {
 	"ui": true,
-    #"domain": "hadoop-test.com",
 	"dns_config": {
 		"allow_stale": false
 	}
