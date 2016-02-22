@@ -35,4 +35,4 @@ echo 'PATH=/usr/local/consul/bin/:$PATH' >> /etc/profile.d/consul.sh && \
 echo 'export PATH' >> /etc/profile.d/consul.sh && \
 source /etc/profile
 
-ENTRYPOINT ["/usr/local/consul/bin/consul"]
+#ENTRYPOINT ["/usr/local/consul/bin/consul"]
