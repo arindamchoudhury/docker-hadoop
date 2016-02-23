@@ -21,8 +21,7 @@ mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
 mv /tmp/run-wordcount.sh ~/run-wordcount.sh
 
 RUN chmod +x ~/start-hadoop.sh && \
-chmod +x ~/run-wordcount.sh && \
-chmod 1777 tmp
+chmod +x ~/run-wordcount.sh
 
 # format namenode
 RUN /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
