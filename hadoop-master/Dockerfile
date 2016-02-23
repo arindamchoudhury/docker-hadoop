@@ -17,12 +17,10 @@ mv /tmp/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml && \
 mv /tmp/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml && \
 mv /tmp/slaves $HADOOP_INSTALL/etc/hadoop/slaves && \
 mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
-mv /tmp/run-wordcount.sh ~/run-wordcount.sh && \ 
-mv /tmp/start-ssh-serf.sh ~/start-ssh-serf.sh
+mv /tmp/run-wordcount.sh ~/run-wordcount.sh
 
 RUN chmod +x ~/start-hadoop.sh && \
 chmod +x ~/run-wordcount.sh && \
-chmod +x ~/start-ssh-serf.sh && \
 chmod 1777 tmp
 
 # format namenode
