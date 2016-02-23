@@ -1,1 +1,1 @@
-{"service": {"name": "web", "tags": ["rails"], "port": 80}}
+{"service": {"name": "consul-hadoop", "tags": ["agent"], "port": 80}}
