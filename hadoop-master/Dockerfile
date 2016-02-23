@@ -2,6 +2,7 @@ FROM arindamchoudhury/hadoop-base:latest
 
 MAINTAINER Arindam Choudhury <arindam@live.com>
 
+WORKDIR /root/
 # move all confugration files into container
 ADD files/* /tmp/
 
