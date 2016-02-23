@@ -1,4 +1,4 @@
-FROM arindamchoudhury/serf-dnsmasq:latest
+FROM arindamchoudhury/consul-agent:latest
 
 MAINTAINER Arindam Choudhury <arindam@live.com>
 
@@ -12,13 +12,12 @@ apt-get install -y openssh-server wget
 
 #Download jdk-7u79 and extract to /usr/local/
 RUN apt-get purge openjdk*
-RUN wget -c -O "jdk-7u79-linux-x64.tar.gz" --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz" && \
-tar zxf jdk-7u79-linux-x64.tar.gz -C /usr/local/ && \
-rm jdk-7u79-linux-x64.tar.gz
+RUN wget -c -O "jdk-7u80-linux-x64.tar.gz" --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/7u80-b15/jdk-7u80-linux-x64.tar.gz" && \
+tar zxf jdk-7u80-linux-x64.tar.gz -C /usr/local/ && \
+rm jdk-7u80-linux-x64.tar.gz
 #Setup Java environment
 RUN touch /etc/profile.d/java.sh && \
-echo '#!/bin/bash' >> /etc/profile.d/java.sh && \
-echo 'JAVA_HOME=/usr/local/jdk1.7.0_79/' >> /etc/profile.d/java.sh && \
+echo 'JAVA_HOME=/usr/local/jdk1.7.0_80/' >> /etc/profile.d/java.sh && \
 echo 'PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile.d/java.sh && \
 echo 'export JAVA_HOME PATH' >> /etc/profile.d/java.sh && \
 chmod +x /etc/profile.d/java.sh
@@ -31,7 +30,6 @@ rm hadoop-2.7.2.tar.gz
 
 # Setup hadoop environment
 RUN touch /etc/profile.d/hadoop.sh && \ 
-echo '#!/bin/bash' >> /etc/profile.d/hadoop.sh && \ 
 echo 'HADOOP_PREFIX=/usr/local/hadoop-2.7.2/' >> /etc/profile.d/hadoop.sh && \
 echo 'HADOOP_COMMON_HOME=$HADOOP_PREFIX' >> /etc/profile.d/hadoop.sh && \
 echo 'HADOOP_HDFS_HOME=$HADOOP_PREFIX' >> /etc/profile.d/hadoop.sh && \
@@ -45,16 +43,16 @@ chmod +x /etc/profile.d/hadoop.sh && \
 source /etc/profile
 
 # Modify hadoop-env.sh
-RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/local/jdk1.7.0_79\nexport HADOOP_PREFIX=/usr/local/hadoop-2.7.2\nexport HADOOP_HOME=/usr/local/hadoop-2.7.2\n:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
+RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/local/jdk1.7.0_80\nexport HADOOP_PREFIX=/usr/local/hadoop-2.7.2\nexport HADOOP_HOME=/usr/local/hadoop-2.7.2\n:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
 RUN sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop-2.7.2/etc/hadoop/:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
 
 
 # move all configuration files into container
-ADD files/ /usr/local/
+ADD files/ /tmp/
 
 #configure ssh free key access
 RUN mkdir /var/run/sshd && \
 ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
-mv /usr/local/ssh_config ~/.ssh/config && \
+mv /tmp/ssh_config ~/.ssh/config && \
 sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
