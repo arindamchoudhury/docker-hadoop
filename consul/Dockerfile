@@ -17,6 +17,7 @@ apt-get install -y unzip wget curl vim dnsutils
 # Download and extract consul
 RUN wget -c -O "consul_0.6.3_linux_amd64.zip" "https://releases.hashicorp.com/consul/0.6.3/consul_0.6.3_linux_amd64.zip" && \
 mkdir -p /usr/local/consul/bin && \
+mkdir -p /usr/local/consul/logs && \
 unzip consul_0.6.3_linux_amd64.zip -d /usr/local/consul/bin && \
 rm consul_0.6.3_linux_amd64.zip
 

@@ -56,3 +56,10 @@ ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
 mv /tmp/ssh_config ~/.ssh/config && \
 sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+RUN apt-get -y install supervisor && \
+mkdir -p /var/log/supervisor && \
+mkdir -p /etc/supervisor/conf.d
+
+ADD files/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+
