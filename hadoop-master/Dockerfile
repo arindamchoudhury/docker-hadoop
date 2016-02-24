@@ -18,10 +18,12 @@ mv /tmp/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml && \
 mv /tmp/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml && \
 mv /tmp/slaves $HADOOP_INSTALL/etc/hadoop/slaves && \
 mv /tmp/start-hadoop.sh ~/start-hadoop.sh && \
-mv /tmp/run-wordcount.sh ~/run-wordcount.sh
+mv /tmp/run-wordcount.sh ~/run-wordcount.sh && \
+mv /tmp/my-service-handler.sh ~/my-service-handler.sh
 
 RUN chmod +x ~/start-hadoop.sh && \
-chmod +x ~/run-wordcount.sh
+chmod +x ~/run-wordcount.sh && \
+chmod +x ~/my-service-handler.sh
 
 # format namenode
 RUN /usr/local/hadoop-2.7.2/bin/hdfs namenode -format

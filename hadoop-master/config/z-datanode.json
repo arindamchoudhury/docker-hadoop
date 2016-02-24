@@ -1,0 +1,5 @@
+{
+  "type": "service",
+  "service": "datanode",
+  "handler": "/root/my-service-handler.sh"
+}
