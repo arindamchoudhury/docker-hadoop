@@ -1,1 +1,0 @@
-{"service": {"name": "consul-server", "tags": ["server"], "port": 80}}

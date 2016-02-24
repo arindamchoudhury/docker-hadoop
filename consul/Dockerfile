@@ -33,3 +33,8 @@ rm consul-template_0.13.0_linux_amd64.zip
 #echo 'export PATH' >> /etc/profile.d/consul.sh
 ENV PATH /usr/local/consul/bin:$PATH
 
+
+
+
+
+
