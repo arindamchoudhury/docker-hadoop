@@ -21,7 +21,7 @@ rm jdk-7u80-linux-x64.tar.gz
 #echo 'PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile.d/java.sh && \
 #echo 'export JAVA_HOME PATH' >> /etc/profile.d/java.sh && \
 #chmod +x /etc/profile.d/java.sh
-ENV JAVA_HOME /usr/local/jdk1.7.0_80/
+ENV JAVA_HOME /usr/local/jdk1.7.0_80
 ENV PATH $JAVA_HOME/bin:$PATH
 
 # Download Hadoop and extract to /usr/local/
