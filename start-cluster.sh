@@ -11,7 +11,7 @@ fi
 
 docker rm -f consul-server &> /dev/null
 echo "start consul-server container..."
-docker run -d --name=consul-server -h server  --dns-search node.dc1.arindamdomain.com  --dns 127.0.0.1 arindamchoudhury/consul-server  -bootstrap
+docker run -d --name=consul-server -h server  --dns-search node.dc1.arindamdomain.com  --dns 127.0.0.1 arindamchoudhury/consul-server  -bootstrap &> /dev/null
 
 SERVER_IP=$(docker inspect --format="{{.NetworkSettings.IPAddress}}" consul-server)
 
