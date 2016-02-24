@@ -27,8 +27,9 @@ mkdir -p /usr/local/consul/bin && \
 unzip consul-template_0.13.0_linux_amd64.zip -d /usr/local/consul/bin && \
 rm consul-template_0.13.0_linux_amd64.zip
 
-#Setup Consul environment
-RUN touch /etc/profile.d/consul.sh && \
-echo 'PATH=/usr/local/consul/bin/:$PATH' >> /etc/profile.d/consul.sh && \
-echo 'export PATH' >> /etc/profile.d/consul.sh
+##Setup Consul environment
+#RUN touch /etc/profile.d/consul.sh && \
+#echo 'PATH=/usr/local/consul/bin/:$PATH' >> /etc/profile.d/consul.sh && \
+#echo 'export PATH' >> /etc/profile.d/consul.sh
+ENV PATH /usr/local/consul/bin/:$PATH
 
