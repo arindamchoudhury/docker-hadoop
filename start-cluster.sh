@@ -23,6 +23,7 @@ docker run -e CONSUL_SERVER_ADDR=$SERVER_IP -d -h master --dns-search node.dc1.a
 # get the IP address of master container
 # delete old slave containers and start new slave containers
 i=1
+N=$((N+1))
 while [ $i -lt $N ]
 do
 	docker rm -f slave$i &> /dev/null
