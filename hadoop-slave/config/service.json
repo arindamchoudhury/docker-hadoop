@@ -1,1 +1,3 @@
-{"service": {"name": "hadoop", "tags": ["slave"]}}
+{
+  "services": [{"name": "datanode"}, {"name": "nodemanger"}]
+}
