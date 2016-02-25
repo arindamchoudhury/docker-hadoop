@@ -37,8 +37,7 @@ echo '#!/bin/bash' >> /etc/profile.d/java.sh && \
 echo 'JAVA_HOME=/usr/local/jdk1.7.0_80/' >> /etc/profile.d/java.sh && \
 echo 'PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile.d/java.sh && \
 echo 'export JAVA_HOME PATH' >> /etc/profile.d/java.sh && \
-chmod +x /etc/profile.d/java.sh
-
+chmod +x /etc/profile.d/java.sh && \
 source /etc/profile
 
 # Download hadoop-2.7.2-src and compile
