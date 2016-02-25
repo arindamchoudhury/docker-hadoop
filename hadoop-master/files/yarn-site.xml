@@ -5,6 +5,11 @@
    <value>mapreduce_shuffle</value>
 </property>
 <property>
+   <name>yarn.resourcemanager.nodes.include-path</name>
+   <value>/usr/local/hadoop-2.7.2/etc/hadoop/yarn.include</value>
+   <final>true</final>
+</property>
+<property>
   <name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
   <value>org.apache.hadoop.mapred.ShuffleHandler</value>
 </property>
