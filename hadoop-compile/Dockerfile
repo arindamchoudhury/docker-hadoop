@@ -49,7 +49,3 @@ RUN wget -c -O "hadoop-2.7.2-src.tar.gz" "http://apache.rediris.es/hadoop/common
 tar zxf hadoop-2.7.2-src.tar.gz -C /usr/local/ && \
 cd /usr/local/hadoop-2.7.2-src && \
 mvn package -Pdist,native,docs,src -DskipTests -Dtar -Drequire.snappy -Drequire.openssl
-
-
-
-
