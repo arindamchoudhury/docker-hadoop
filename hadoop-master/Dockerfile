@@ -19,10 +19,10 @@ ADD files/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml
 ADD files/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml
 ADD files/slaves $HADOOP_INSTALL/etc/hadoop/slaves
 
-ADD files/start-hadoop.sh ~/start-hadoop.sh
-ADD files/run-wordcount.sh ~/run-wordcount.sh
+ADD files/start-hadoop.sh /root/start-hadoop.sh
+ADD files/run-wordcount.sh /root/run-wordcount.sh
 
-ADD files/my-service-handler.sh ~/my-service-handler.sh
+ADD files/my-service-handler.sh /root/my-service-handler.sh
 ADD files/template.cfg /tmp/template.cfg
 ADD files/template.ctmpl /tmp/template.ctmpl
 
