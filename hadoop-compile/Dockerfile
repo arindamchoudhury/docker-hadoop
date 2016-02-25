@@ -40,6 +40,9 @@ echo 'export JAVA_HOME PATH' >> /etc/profile.d/java.sh && \
 chmod +x /etc/profile.d/java.sh && \
 source /etc/profile
 
+ENV JAVA_HOME /usr/local/jdk1.7.0_80
+ENV PATH $JAVA_HOME/bin:$PATH
+
 # Download hadoop-2.7.2-src and compile
 RUN wget -c -O "hadoop-2.7.2-src.tar.gz" "http://apache.rediris.es/hadoop/common/hadoop-2.7.2/hadoop-2.7.2-src.tar.gz" && \
 tar zxf hadoop-2.7.2-src.tar.gz -C /usr/local/ && \
