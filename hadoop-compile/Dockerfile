@@ -28,8 +28,8 @@ echo 'FINDBUGS_HOME=/usr/local/findbugs-3.0.1/' >> /etc/profile.d/findbugs.sh &&
 chmod +x /etc/profile.d/findbugs.sh
 
 #Download jdk-7u79 and extract to /usr/local/
-RUN apt-get purge openjdk* && \
-wget -c -O "jdk-7u80-linux-x64.tar.gz" --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/7u80-b15/jdk-7u80-linux-x64.tar.gz" && \
+RUN apt-get purge openjdk*
+RUN wget -c -O "jdk-7u80-linux-x64.tar.gz" --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/7u80-b15/jdk-7u80-linux-x64.tar.gz" && \
 tar zxf jdk-7u80-linux-x64.tar.gz -C /usr/local/ && \
 rm jdk-7u80-linux-x64.tar.gz
 #Setup Java environment
