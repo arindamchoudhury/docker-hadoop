@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-consul-template -config template.cfg -once
+consul-template -config /tmp/template.cfg -once
