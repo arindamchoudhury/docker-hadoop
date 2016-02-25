@@ -42,6 +42,7 @@ source /etc/profile
 
 ENV JAVA_HOME /usr/local/jdk1.7.0_80
 ENV PATH $JAVA_HOME/bin:$PATH
+ENV FINDBUGS_HOME /usr/local/findbugs-3.0.1
 
 # Download hadoop-2.7.2-src and compile
 RUN wget -c -O "hadoop-2.7.2-src.tar.gz" "http://apache.rediris.es/hadoop/common/hadoop-2.7.2/hadoop-2.7.2-src.tar.gz" && \
