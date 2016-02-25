@@ -9,7 +9,8 @@ ENV HADOOP_INSTALL /usr/local/hadoop-2.7.2
 
 RUN mkdir -p ~/hdfs/namenode && \ 
 mkdir -p ~/hdfs/datanode && \
-mkdir $HADOOP_INSTALL/logs
+mkdir $HADOOP_INSTALL/logs && \
+mkdir -p /usr/local/consul-watch
 
 ADD ./config /usr/local/consul/config/
 
@@ -22,15 +23,17 @@ ADD files/slaves $HADOOP_INSTALL/etc/hadoop/slaves
 ADD files/start-hadoop.sh /root/start-hadoop.sh
 ADD files/run-wordcount.sh /root/run-wordcount.sh
 
-ADD files/my-service-handler.sh /root/my-service-handler.sh
-ADD files/template.cfg /tmp/template.cfg
-ADD files/template.ctmpl /tmp/template.ctmpl
+ADD files/my-service-handler.sh /usr/local/consul-watch/my-service-handler.sh
+ADD files/template.cfg /usr/local/consul-watch/template.cfg
+ADD files/template.ctmpl /usr/local/consul-watch/template.ctmpl
+ADD files/watch-helper.py /usr/local/consul-watch/watch-helper.py
 
 ADD files/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
 RUN chmod +x ~/start-hadoop.sh && \
 chmod +x ~/run-wordcount.sh && \
-chmod +x ~/my-service-handler.sh
+chmod +x /usr/local/consul-watch/my-service-handler.sh && \
+chmod +x /usr/local/consul-watch/watch-helper.py
 
 # format namenode
 RUN /usr/local/hadoop-2.7.2/bin/hdfs namenode -format

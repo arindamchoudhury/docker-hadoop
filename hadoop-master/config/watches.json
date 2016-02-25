@@ -3,7 +3,7 @@
     {
       "type": "service",
       "service": "datanode",
-      "handler": "/root/my-service-handler.sh"
+      "handler": "/usr/local/consul-watch/my-service-handler.sh"
     }
   ]
 }
