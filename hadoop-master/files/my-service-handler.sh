@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-echo "hello" >> /root/hello
+consul-template -config template.cfg -once
