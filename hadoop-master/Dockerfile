@@ -18,7 +18,6 @@ ADD files/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml
 ADD files/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml
 ADD files/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml
 ADD files/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml
-ADD files/slaves $HADOOP_INSTALL/etc/hadoop/slaves
 
 ADD files/start-hadoop.sh /root/start-hadoop.sh
 ADD files/run-wordcount.sh /root/run-wordcount.sh
@@ -37,6 +36,10 @@ chmod +x /usr/local/consul-watch/watch-helper.py
 
 # format namenode
 RUN /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
+RUN touch $HADOOP_INSTALL/etc/hadoop/dfs.include && \
+touch $HADOOP_INSTALL/etc/hadoop/yarn.include && \
+touch $HADOOP_INSTALL/etc/hadoop/slaves
+
 
 EXPOSE 22 7373 7946 9000 50010 50020 50070 50075 50090 50475 8030 8031 8032 8033 8040 8042 8060 8088 50060
 
