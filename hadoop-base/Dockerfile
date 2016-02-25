@@ -10,11 +10,13 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get update && \
 apt-get install -y openssh-server wget
 
+ADD tars/ /tmp/
+
 #Download jdk-7u79 and extract to /usr/local/
 RUN apt-get purge openjdk*
-RUN wget -c -O "jdk-7u80-linux-x64.tar.gz" --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/7u80-b15/jdk-7u80-linux-x64.tar.gz" && \
-tar zxf jdk-7u80-linux-x64.tar.gz -C /usr/local/ && \
-rm jdk-7u80-linux-x64.tar.gz
+#RUN wget -c -O "jdk-7u80-linux-x64.tar.gz" --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/7u80-b15/jdk-7u80-linux-x64.tar.gz" && \
+RUN tar zxf /tmp/jdk-7u80-linux-x64.tar.gz -C /usr/local/ && \
+rm /tmp/jdk-7u80-linux-x64.tar.gz
 #Setup Java environment
 #RUN touch /etc/profile.d/java.sh && \
 #echo 'JAVA_HOME=/usr/local/jdk1.7.0_80/' >> /etc/profile.d/java.sh && \
@@ -25,9 +27,9 @@ ENV JAVA_HOME /usr/local/jdk1.7.0_80
 ENV PATH $JAVA_HOME/bin:$PATH
 
 # Download Hadoop and extract to /usr/local/
-RUN wget -c -O "hadoop-2.7.2.tar.gz" "http://apache.rediris.es/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz" && \
-tar zxf hadoop-2.7.2.tar.gz -C /usr/local/ && \
-rm hadoop-2.7.2.tar.gz
+#RUN wget -c -O "hadoop-2.7.2.tar.gz" "http://apache.rediris.es/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz" && \
+RUN tar zxf /tmp/hadoop-2.7.2.tar.gz -C /usr/local/ && \
+rm /tmp/hadoop-2.7.2.tar.gz
 
 # Setup hadoop environment
 #RUN touch /etc/profile.d/hadoop.sh && \
