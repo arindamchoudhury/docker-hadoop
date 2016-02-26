@@ -88,7 +88,3 @@ mkdir -p /var/data/hadoop/hdfs/snn && \
 mkdir -p /var/data/hadoop/hdfs/dn && \
 chown hdfs:hadoop /var/data/hadoop/hdfs -R
 
-RUN mkdir $HADOOP_PREFIX/logs && \
-chmod g+w $HADOOP_PREFIX/logs && \
-chown -R yarn:hadoop $HADOOP_PREFIX/logs
-
