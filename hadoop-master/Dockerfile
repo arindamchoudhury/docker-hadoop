@@ -41,6 +41,14 @@ touch $HADOOP_INSTALL/etc/hadoop/slaves
 # format namenode
 RUN /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
 
+ADD tars/ /tmp/
+
+#RUN wget -c -O "apache-hive-1.2.1-bin.tar.gz" "http://apache.rediris.es/hive/hive-1.2.1/apache-hive-1.2.1-bin.tar.gz" && \
+RUN tar zxf /tmp/apache-hive-1.2.1-bin.tar.gz -C /usr/local/ && \
+rm /tmp/apache-hive-1.2.1-bin.tar.gz
+
+ENV HIVE_HOME /usr/local/apache-hive-1.2.1-bin
+ENV PATH $HIVE_HOME/bin:$PATH
 
 
 EXPOSE 22 7373 7946 9000 50010 50020 50070 50075 50090 50475 8030 8031 8032 8033 8040 8042 8060 8088 50060
