@@ -9,7 +9,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 # install required packages
 RUN apt-get update && \
 apt-get install -y openssh-server wget && \
-apt-get install -y libsnappy1 libsnappy-dev liblzo2-2 liblzo2-dev hadooplzo
+apt-get install -y libsnappy1 libsnappy-dev liblzo2-2 liblzo2-dev
 
 
 ADD tars/ /tmp/
