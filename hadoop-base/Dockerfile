@@ -6,9 +6,11 @@ ENV TERM linux
 ENV DEBIAN_FRONTEND noninteractive
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-# install openssh-server, wget
+# install required packages
 RUN apt-get update && \
-apt-get install -y openssh-server wget
+apt-get install -y openssh-server wget && \
+apt-get install -y libsnappy1 libsnappy-dev liblzo2-2 liblzo2-dev hadooplzo
+
 
 ADD tars/ /tmp/
 
@@ -74,5 +76,10 @@ RUN apt-get -y install supervisor ntp && \
 mkdir -p /var/log/supervisor && \
 mkdir -p /etc/supervisor/conf.d
 
-#ADD files/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+#create users and groups
+RUN groupadd hadoop && \
+useradd -g hadoop yarn && \
+useradd -g hadoop hdfs && \
+useradd -g hadoop mapred
+
 
