@@ -6,7 +6,7 @@
         <value>mapreduce_suffle</value>
     </property>
     <property>
-        <name>>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+        <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
         <value>org.apache.hadoop.mapred.ShuffleHandler</value>
     </property>
     <property>
