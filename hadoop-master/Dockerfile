@@ -40,7 +40,7 @@ touch $HADOOP_INSTALL/etc/hadoop/yarn.include && \
 touch $HADOOP_INSTALL/etc/hadoop/slaves
 
 # format namenode
-RUN sudo su - hdfs /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
+RUN sudo -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
 
 ADD tars/ /tmp/
 
