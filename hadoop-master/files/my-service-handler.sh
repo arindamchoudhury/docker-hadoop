@@ -5,6 +5,6 @@ cp /usr/local/consul-watch/result /usr/local/hadoop-2.7.2/etc/hadoop/yarn.includ
 cp /usr/local/consul-watch/result /usr/local/hadoop-2.7.2/etc/hadoop/dfs.include
 cp /usr/local/consul-watch/result /usr/local/hadoop-2.7.2/etc/hadoop/slaves
 
-yarn rmadmin -refreshNodes
+sudo -u yarn /usr/local/hadoop-2.7.2/bin/yarn rmadmin -refreshNodes
 
-hdfs dfsadmin -refreshNodes
+sudo -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfsadmin -refreshNodes
