@@ -78,9 +78,9 @@ mkdir -p /etc/supervisor/conf.d
 
 #create users and groups
 RUN groupadd hadoop && \
-useradd -g hadoop -m -s /sbin/nologin yarn && \
-useradd -g hadoop hdfs && \
-useradd -g hadoop mapred
+useradd -g hadoop -m -s /bin/bash yarn && \
+useradd -g hadoop -m -s /bin/bash hdfs && \
+useradd -g hadoop -m -s /bin/bash mapred
 
 #Create directories
 #RUN mkdir -p /var/data/hadoop/hdfs/nn && \
