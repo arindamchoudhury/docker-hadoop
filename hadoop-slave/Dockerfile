@@ -12,7 +12,8 @@ ENV HADOOP_INSTALL /usr/local/hadoop-2.7.2
 RUN mkdir -p /var/data/hadoop/hdfs/dn && \
 mkdir $HADOOP_INSTALL/logs && \
 chown -R hdfs:hadoop /var/data/hadoop/hdfs/dn && \
-chown -R hdfs:hadoop $HADOOP_INSTALL/logs
+chgrp -R hadoop $HADOOP_INSTALL && \
+chmod -R g+rwxs $HADOOP_INSTALL
 
 RUN mv /tmp/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml && \
 mv /tmp/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml && \
