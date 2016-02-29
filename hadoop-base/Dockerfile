@@ -77,7 +77,7 @@ mkdir -p /var/log/supervisor && \
 mkdir -p /etc/supervisor/conf.d
 
 #create users and groups
-RUN addgroup hadoop --disabled-password --disabled-login && \
+RUN addgroup --disabled-password --disabled-login hadoop  && \
 adduser yarn && \
 adduser yarn hadoop && \
 adduser hdfs hadoop && \
