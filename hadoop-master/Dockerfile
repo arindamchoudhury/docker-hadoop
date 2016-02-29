@@ -2,7 +2,8 @@ FROM arindamchoudhury/hadoop-base:latest
 
 MAINTAINER Arindam Choudhury <arindam@live.com>
 
-WORKDIR /root/
+WORKDIR /home/hdfs
+USER hdfs
 # move all confugration files into container
 
 ENV HADOOP_INSTALL /usr/local/hadoop-2.7.2
@@ -10,7 +11,8 @@ ENV HADOOP_INSTALL /usr/local/hadoop-2.7.2
 RUN mkdir -p /var/data/hadoop/hdfs/nn && \
 mkdir $HADOOP_INSTALL/logs && \
 chown -R hdfs:hadoop /var/data/hadoop/hdfs/nn && \
-chown -R hdfs:hadoop $HADOOP_INSTALL/logs && \
+chown -R hdfs:hadoop $HADOOP_INSTALL && \
+chmod 0777 $HADOOP_INSTALL && \
 mkdir -p /usr/local/consul-watch
 
 ADD ./config /usr/local/consul/config/
