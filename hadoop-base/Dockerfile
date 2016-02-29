@@ -77,11 +77,10 @@ mkdir -p /var/log/supervisor && \
 mkdir -p /etc/supervisor/conf.d
 
 #create users and groups
-RUN addgroup hadoop  && \
-adduser --disabled-password --disabled-login yarn && \
-adduser yarn hadoop && \
-adduser hdfs hadoop && \
-adduser mapred hadoop
+RUN groupadd hadoop && \
+useradd -g hadoop -m -s /sbin/nologin yarn && \
+useradd -g hadoop hdfs && \
+useradd -g hadoop mapred
 
 #Create directories
 RUN mkdir -p /var/data/hadoop/hdfs/nn && \
