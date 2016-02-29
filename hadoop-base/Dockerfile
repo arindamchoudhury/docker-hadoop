@@ -78,9 +78,9 @@ mkdir -p /etc/supervisor/conf.d
 
 #create users and groups
 RUN addgroup hadoop && \
-adduser -g hadoop yarn && \
-adduser -g hadoop hdfs && \
-adduser -g hadoop mapred
+adduser yarn hadoop && \
+adduser hdfs hadoop && \
+adduser mapred hadoop
 
 #Create directories
 RUN mkdir -p /var/data/hadoop/hdfs/nn && \
