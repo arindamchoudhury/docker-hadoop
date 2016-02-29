@@ -82,7 +82,12 @@ useradd -g hadoop -m -s /bin/bash yarn && \
 useradd -g hadoop -m -s /bin/bash hdfs && \
 useradd -g hadoop -m -s /bin/bash mapred
 
-#Create directories
-#RUN mkdir -p /var/data/hadoop/hdfs/nn && \
-#mkdir -p /var/data/hadoop/hdfs/snn && \
-#mkdir -p /var/data/hadoop/hdfs/dn
+ENV HADOOP_PID_DIR /var/run
+ENV HADOOP_LOG_DIR /var/log/hadoop
+
+
+RUN mkdir $HADOOP_LOG_DIR && \
+chgrp -R hadoop $HADOOP_PREFIX && \
+chmod -R g+rwxs $HADOOP_PREFIX && \
+chgrp -R hadoop $HADOOP_LOG_DIR && \
+chmod -R g+rwxs $HADOOP_LOG_DIR

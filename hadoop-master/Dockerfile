@@ -9,8 +9,6 @@ ENV HADOOP_INSTALL /usr/local/hadoop-2.7.2
 RUN mkdir -p /var/data/hadoop/hdfs/nn && \
 mkdir $HADOOP_INSTALL/logs && \
 chown -R hdfs:hadoop /var/data/hadoop/hdfs/nn && \
-chgrp -R hadoop $HADOOP_INSTALL && \
-chmod -R g+rwxs $HADOOP_INSTALL && \
 mkdir -p /usr/local/consul-watch
 
 ADD ./config /usr/local/consul/config/
