@@ -87,5 +87,6 @@ RUN mkdir -p /var/data/hadoop/hdfs/nn && \
 mkdir -p /var/data/hadoop/hdfs/snn && \
 mkdir -p /var/data/hadoop/hdfs/dn && \
 chown hdfs:hadoop /var/data/hadoop/hdfs -R && \
-chown hdfs:hadoop /usr/local/hadoop-2.7.2/logs -R
+mkdir -p /usr/local/hadoop-2.7.2/logs && \
+chown -R hdfs:hadoop /usr/local/hadoop-2.7.2/logs
 
