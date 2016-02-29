@@ -7,9 +7,11 @@ WORKDIR /root/
 
 ENV HADOOP_INSTALL /usr/local/hadoop-2.7.2
 
-RUN mkdir -p ~/hdfs/namenode && \ 
-mkdir -p ~/hdfs/datanode && \
+RUN mkdir -p /var/data/hadoop/hdfs/nn && \
 mkdir $HADOOP_INSTALL/logs && \
+chown -R hdfs:hadoop /var/data/hadoop/hdfs/nn && \
+chown -R hdfs:hadoop $HADOOP_INSTALL/logs
+
 mkdir -p /usr/local/consul-watch
 
 ADD ./config /usr/local/consul/config/
@@ -39,7 +41,7 @@ touch $HADOOP_INSTALL/etc/hadoop/yarn.include && \
 touch $HADOOP_INSTALL/etc/hadoop/slaves
 
 # format namenode
-RUN /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
+RUN sudo su - hdfs /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
 
 ADD tars/ /tmp/
 
