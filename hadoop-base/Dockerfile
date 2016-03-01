@@ -65,7 +65,8 @@ mkdir -p /etc/supervisor/conf.d
 RUN groupadd hadoop && \
 useradd -g hadoop -m -s /bin/bash yarn && \
 useradd -g hadoop -m -s /bin/bash hdfs && \
-useradd -g hadoop -m -s /bin/bash mapred
+useradd -g hadoop -m -s /bin/bash mapred && \
+useradd -g hadoop -m -s /bin/bash hive
 
 ENV HADOOP_LOG_DIR /var/log/hadoop
 ENV YARN_LOG_DIR /var/log/hadoop
