@@ -52,11 +52,7 @@ ADD tars/ /tmp/
 RUN tar zxf /tmp/apache-hive-1.2.1-bin.tar.gz -C /usr/local/ && \
 rm /tmp/apache-hive-1.2.1-bin.tar.gz
 
-RUN touch /etc/profile.d/hive.sh && \
-echo 'HIVE_HOME=/usr/local/apache-hive-1.2.1-bin/' >> /etc/profile.d/hive.sh && \
-echo 'PATH=$HIVE_HOME/bin:$PATH' >> /etc/profile.d/hive.sh && \
-echo 'export HIVE_HOME PATH' >> /etc/profile.d/hive.sh && \
-source /etc/profile
+RUN source /etc/profile
 
 ENV HIVE_HOME /usr/local/apache-hive-1.2.1-bin
 ENV PATH $HIVE_HOME/bin:$PATH
