@@ -10,7 +10,16 @@ nohup /usr/local/consul/bin/consul agent -config-dir /usr/local/consul/config --
 sleep 2
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/sbin/hadoop-daemon.sh start datanode
-sleep2
+sleep 2
 
 sudo -E -u yarn /usr/local/hadoop-2.7.2/sbin/yarn-daemon.sh start nodemanager
-sleep2
+sleep 2
+
+
+if [[ $1 == "-d" ]]; then
+  while true; do sleep 10; done
+fi
+
+if [[ $1 == "-bash" ]]; then
+  /bin/bash
+fi

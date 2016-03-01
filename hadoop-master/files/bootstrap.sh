@@ -17,3 +17,11 @@ sleep 2
 
 sudo -E -u yarn /usr/local/hadoop-2.7.2/sbin/yarn-daemon.sh start historyserver
 sleep 2
+
+if [[ $1 == "-d" ]]; then
+  while true; do sleep 10; done
+fi
+
+if [[ $1 == "-bash" ]]; then
+  /bin/bash
+fi
