@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-service sshd start
+service ssh start
 sleep 2
 
 /usr/sbin/ntpd -u ntp:ntp -p /var/run/ntpd.pid -g -n
 sleep 2
 
-/usr/local/consul/bin/consul agent -config-dir /usr/local/consul/config --domain=$CONSUL_DOMAIN_NAME -join $CONSUL_SERVER_ADDR
+nohup /usr/local/consul/bin/consul agent -config-dir /usr/local/consul/config --domain=$CONSUL_DOMAIN_NAME -join $CONSUL_SERVER_ADDR >>/var/log/consul.log 2>&1 &
 sleep 2
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/sbin/hadoop-daemon.sh start namenode
