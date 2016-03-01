@@ -60,7 +60,7 @@ ENV PATH $HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$PATH
 # Modify hadoop-env.sh
 RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/local/jdk1.7.0_80\nexport HADOOP_PREFIX=/usr/local/hadoop-2.7.2\nexport HADOOP_HOME=/usr/local/hadoop-2.7.2\n:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
 RUN sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop-2.7.2/etc/hadoop/:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
-RUN sed -i '/^export HADOOP_LOG_DIR/ s:.*:export HADOOP_LOG_DIR=/var/log/hadoop:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
+RUN sed -i '/^export HADOOP_LOG_DIR/ s:.*:export HADOOP_LOG_DIR=/var/log/hadoop:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh && \
 sed -i "s,\#export HADOOP_LOG_DIR=.*,export HADOOP_LOG_DIR=/var/log/hadoop," /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
 
 # move all configuration files into container
