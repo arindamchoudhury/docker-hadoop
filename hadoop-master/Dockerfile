@@ -44,7 +44,7 @@ touch $HADOOP_INSTALL/etc/hadoop/slaves
 #RUN source /etc/profile
 
 # format namenode
-RUN sudo -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
+RUN sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
 
 ADD tars/ /tmp/
 
