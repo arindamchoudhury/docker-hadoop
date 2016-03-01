@@ -2,7 +2,7 @@
 
 service ssh start
 
-ervice ntp start
+service ntp start
 
 nohup /usr/local/consul/bin/consul agent -config-dir /usr/local/consul/config --domain=$CONSUL_DOMAIN_NAME -join $CONSUL_SERVER_ADDR >>/var/log/consul.log 2>&1 &
 
