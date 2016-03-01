@@ -2,6 +2,8 @@ FROM arindamchoudhury/hadoop-base:latest
 
 MAINTAINER Arindam Choudhury <arindam@live.com>
 
+WORKDIR /root/
+
 # move all confugration files into container
 
 ENV HADOOP_INSTALL /usr/local/hadoop-2.7.2
@@ -17,6 +19,7 @@ ADD files/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml
 ADD files/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml
 ADD files/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml
 ADD files/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml
+ADD files/bootstrap.sh /etc/bootstrap.sh
 
 ADD files/start-hadoop.sh /root/start-hadoop.sh
 ADD files/run-wordcount.sh /root/run-wordcount.sh
@@ -31,7 +34,8 @@ ADD files/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 RUN chmod +x ~/start-hadoop.sh && \
 chmod +x ~/run-wordcount.sh && \
 chmod +x /usr/local/consul-watch/my-service-handler.sh && \
-chmod +x /usr/local/consul-watch/watch-helper.py
+chmod +x /usr/local/consul-watch/watch-helper.py && \
+chmod +x /etc/bootstrap.sh
 
 RUN touch $HADOOP_INSTALL/etc/hadoop/dfs.include && \
 touch $HADOOP_INSTALL/etc/hadoop/yarn.include && \
@@ -54,4 +58,5 @@ ENV PATH $HIVE_HOME/bin:$PATH
 
 EXPOSE 22 7373 7946 9000 50010 50020 50070 50075 50090 50475 8030 8031 8032 8033 8040 8042 8060 8088 50060
 
-CMD ["/usr/bin/supervisord"]
+#CMD ["/usr/bin/supervisord"]
+CMD ["/etc/bootstrap.sh", "-d"]

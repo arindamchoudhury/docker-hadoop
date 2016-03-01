@@ -6,6 +6,8 @@ WORKDIR /root/
 
 # move all confugration /tmp into container
 ADD files/* /tmp/
+ADD files/bootstrap.sh /etc/bootstrap.sh
+RUN chmod +x /etc/bootstrap.sh
 
 ENV HADOOP_INSTALL /usr/local/hadoop-2.7.2
 
@@ -25,4 +27,5 @@ EXPOSE 22 7373 7946 9000 50010 50020 50070 50075 50090 50475 8030 8031 8032 8033
 ADD ./config /usr/local/consul/config/
 ADD files/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
-CMD ["/usr/bin/supervisord"]
+#CMD ["/usr/bin/supervisord"]
+CMD ["/etc/bootstrap.sh", "-d"]
