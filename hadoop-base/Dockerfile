@@ -42,8 +42,11 @@ echo 'HADOOP_MAPRED_HOME=$HADOOP_PREFIX' >> /etc/profile.d/hadoop.sh && \
 echo 'HADOOP_YARN_HOME=$HADOOP_PREFIX' >> /etc/profile.d/hadoop.sh && \
 echo 'HADOOP_CONF_DIR=$HADOOP_PREFIX/etc/hadoop' >> /etc/profile.d/hadoop.sh && \
 echo 'YARN_CONF_DIR=$HADOOP_PREFIX/etc/hadoop' >> /etc/profile.d/hadoop.sh && \
+echo 'HADOOP_PID_DIR=/var/run' >> /etc/profile.d/hadoop.sh && \
+echo 'HADOOP_LOG_DIR=/var/log/hadoop' >> /etc/profile.d/hadoop.sh && \
+echo 'YARN_LOG_DIR=/var/log/hadoop' >> /etc/profile.d/hadoop.sh && \
 echo 'PATH=$HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$PATH' >> /etc/profile.d/hadoop.sh && \
-echo 'export HADOOP_PREFIX HADOOP_COMMON_HOME HADOOP_HDFS_HOME HADOOP_MAPRED_HOME HADOOP_YARN_HOME HADOOP_CONF_DIR YARN_CONF_DIR PATH' >> /etc/profile.d/hadoop.sh && \
+echo 'export HADOOP_PID_DIR HADOOP_LOG_DIR YARN_LOG_DIR HADOOP_PREFIX HADOOP_COMMON_HOME HADOOP_HDFS_HOME HADOOP_MAPRED_HOME HADOOP_YARN_HOME HADOOP_CONF_DIR YARN_CONF_DIR PATH' >> /etc/profile.d/hadoop.sh && \
 chmod +x /etc/profile.d/hadoop.sh && \
 source /etc/profile
 
