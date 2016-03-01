@@ -85,6 +85,7 @@ useradd -g hadoop -m -s /bin/bash mapred
 
 ENV HADOOP_PID_DIR /var/run
 ENV HADOOP_LOG_DIR /var/log/hadoop
+ENV YARN_LOG_DIR /var/log/hadoop
 
 
 RUN mkdir $HADOOP_LOG_DIR && \
