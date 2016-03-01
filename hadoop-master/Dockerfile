@@ -52,6 +52,8 @@ ADD tars/ /tmp/
 RUN tar zxf /tmp/apache-hive-1.2.1-bin.tar.gz -C /usr/local/ && \
 rm /tmp/apache-hive-1.2.1-bin.tar.gz
 
+ADD ./files/hive /etc/profile.d/hive
+
 RUN source /etc/profile
 
 ENV HIVE_HOME /usr/local/apache-hive-1.2.1-bin
