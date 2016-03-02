@@ -19,7 +19,7 @@ apt-get install -y unzip wget curl vim dnsutils
 COPY tars/consul_0.6.3_linux_amd64.zip /tmp/consul_0.6.3_linux_amd64.zip
 RUN mkdir -p /usr/local/consul/bin && \
 mkdir -p /usr/local/consul/logs && \
-unzip consul_0.6.3_linux_amd64.zip -d /usr/local/consul/bin && \
+unzip /tmp/consul_0.6.3_linux_amd64.zip -d /usr/local/consul/bin && \
 rm consul_0.6.3_linux_amd64.zip
 
 # Download and extract consul-template
