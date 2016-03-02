@@ -9,7 +9,6 @@ WORKDIR /home/hdfs
 ENV HADOOP_INSTALL /usr/local/hadoop-2.7.2
 
 RUN mkdir -p /var/data/hadoop/hdfs/nn && \
-mkdir $HADOOP_INSTALL/logs && \
 chown -R hdfs:hadoop /var/data/hadoop/hdfs/nn && \
 mkdir -p /usr/local/consul-watch
 
@@ -23,20 +22,12 @@ COPY files/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml
 COPY files/bootstrap.sh /etc/bootstrap.sh
 RUN chmod +x /etc/bootstrap.sh
 
-COPY files/start-hadoop.sh /root/start-hadoop.sh
-COPY files/run-wordcount.sh /root/run-wordcount.sh
-
 COPY files/my-service-handler.sh /usr/local/consul-watch/my-service-handler.sh
 COPY files/template.cfg /usr/local/consul-watch/template.cfg
 COPY files/template.ctmpl /usr/local/consul-watch/template.ctmpl
-COPY files/watch-helper.py /usr/local/consul-watch/watch-helper.py
 
-COPY files/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
-RUN chmod +x ~/start-hadoop.sh && \
-chmod +x ~/run-wordcount.sh && \
-chmod +x /usr/local/consul-watch/my-service-handler.sh && \
-chmod +x /usr/local/consul-watch/watch-helper.py && \
+RUN chmod +x /usr/local/consul-watch/my-service-handler.sh && \
 chmod +x /etc/bootstrap.sh
 
 RUN touch $HADOOP_INSTALL/etc/hadoop/dfs.include && \
@@ -50,5 +41,4 @@ RUN source /etc/profile
 
 EXPOSE 22 7373 7946 9000 50010 50020 50070 50075 50090 50475 8030 8031 8032 8033 8040 8042 8060 8088 50060
 
-#CMD ["/usr/bin/supervisord"]
 CMD ["/etc/bootstrap.sh", "-d"]

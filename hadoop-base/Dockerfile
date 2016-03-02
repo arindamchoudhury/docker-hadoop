@@ -8,7 +8,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # install required packages
 RUN apt-get update && \
-apt-get install -y openssh-server wget && \
+apt-get install -y openssh-server wget ntp && \
 apt-get install -y libsnappy1 libsnappy-dev liblzo2-2 liblzo2-dev
 
 
@@ -56,10 +56,6 @@ ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
 mv /tmp/ssh_config ~/.ssh/config && \
 sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
-
-RUN apt-get -y install supervisor ntp && \
-mkdir -p /var/log/supervisor && \
-mkdir -p /etc/supervisor/conf.d
 
 #create users and groups
 RUN groupadd hadoop && \

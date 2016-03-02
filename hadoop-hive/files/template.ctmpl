@@ -1,2 +1,0 @@
-{{range service "datanode"}}{{.Node}}
-{{end}}

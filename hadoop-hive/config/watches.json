@@ -1,9 +1,0 @@
-{
-  "watches": [
-    {
-      "type": "service",
-      "service": "datanode",
-      "handler": "/usr/local/consul-watch/my-service-handler.sh"
-    }
-  ]
-}

@@ -2,12 +2,11 @@ FROM arindamchoudhury/hadoop-base:latest
 
 MAINTAINER Arindam Choudhury <arindam@live.com>
 
-WORKDIR /root/
+WORKDIR /home/hdfs
 
 ENV HADOOP_INSTALL /usr/local/hadoop-2.7.2
 
 RUN mkdir -p /var/data/hadoop/hdfs/dn && \
-mkdir $HADOOP_INSTALL/logs && \
 chown -R hdfs:hadoop /var/data/hadoop/hdfs/dn && \
 chgrp -R hadoop $HADOOP_INSTALL && \
 chmod -R g+rwxs $HADOOP_INSTALL
@@ -23,7 +22,5 @@ RUN chmod +x /etc/bootstrap.sh
 EXPOSE 22 7373 7946 9000 50010 50020 50070 50075 50090 50475 8030 8031 8032 8033 8040 8042 8060 8088 50060
 
 COPY ./config /usr/local/consul/config/
-COPY files/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
-#CMD ["/usr/bin/supervisord"]
 CMD ["/etc/bootstrap.sh", "-d"]
