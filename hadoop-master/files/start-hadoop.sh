@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 $HADOOP_INSTALL/sbin/start-dfs.sh
 

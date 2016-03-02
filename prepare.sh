@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 mkdir -p hadoop-base/tars
 mkdir -p hadoop-master/tars
