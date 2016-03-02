@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-upSeconds="$(cat /proc/uptime | grep -o '^[0-9]\+')"
-upMins=$((${upSeconds} / 60))
+upMins=$(ps -p 1 -o etime= | cut -d':' -f1 | tr -d ' ')
 
 if [ "${upMins}" -gt "5" ]
 then
