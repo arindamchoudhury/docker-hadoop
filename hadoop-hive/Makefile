@@ -1,2 +1,2 @@
 build:
-	docker build -t arindamchoudhury/hadoop-hive .
+	docker build -t arindamchoudhury/hadoop-master .

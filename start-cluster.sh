@@ -37,4 +37,4 @@ done
 
 
 # create a new Bash session in the master container
-docker exec -it master bash
+docker exec -it -u hdfs master bash
