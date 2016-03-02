@@ -10,8 +10,6 @@ nohup /usr/local/consul/bin/consul agent -config-dir /usr/local/consul/config --
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/sbin/hadoop-daemon.sh start namenode
 
-sleep 10
-
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -mkdir -p /user/hdfs
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chown hdfs:hadoop /user/hdfs
 

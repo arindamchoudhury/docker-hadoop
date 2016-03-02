@@ -1,10 +1,17 @@
 #!/usr/bin/env bash
-consul-template -config /usr/local/consul-watch/template.cfg -once
+upSeconds="$(cat /proc/uptime | grep -o '^[0-9]\+')"
+upMins=$((${upSeconds} / 60))
 
-cp /usr/local/consul-watch/result /usr/local/hadoop-2.7.2/etc/hadoop/yarn.include
-cp /usr/local/consul-watch/result /usr/local/hadoop-2.7.2/etc/hadoop/dfs.include
-cp /usr/local/consul-watch/result /usr/local/hadoop-2.7.2/etc/hadoop/slaves
+if [ "${upMins}" -gt "5" ]
+then
 
-sudo -u yarn /usr/local/hadoop-2.7.2/bin/yarn rmadmin -refreshNodes
+    consul-template -config /usr/local/consul-watch/template.cfg -once
 
-sudo -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfsadmin -refreshNodes
+    cp /usr/local/consul-watch/result /usr/local/hadoop-2.7.2/etc/hadoop/yarn.include
+    cp /usr/local/consul-watch/result /usr/local/hadoop-2.7.2/etc/hadoop/dfs.include
+    cp /usr/local/consul-watch/result /usr/local/hadoop-2.7.2/etc/hadoop/slaves
+
+    sudo -u yarn /usr/local/hadoop-2.7.2/bin/yarn rmadmin -refreshNodes
+
+    sudo -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfsadmin -refreshNodes
+fi
