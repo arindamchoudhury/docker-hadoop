@@ -12,7 +12,8 @@ RUN mkdir -p /var/data/hadoop/hdfs/nn && \
 chown -R hdfs:hadoop /var/data/hadoop/hdfs/nn && \
 mkdir -p /usr/local/consul-watch
 
-COPY ./config /usr/local/consul/config/
+COPY config/service.json /usr/local/consul/config/service.json
+COPY config/watches.json /usr/local/consul/config/watches.json
 
 COPY files/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml
 COPY files/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml

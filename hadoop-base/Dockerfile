@@ -8,9 +8,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # install required packages
 RUN apt-get update && \
-apt-get install -y openssh-server wget ntp && \
-apt-get install -y libsnappy1 libsnappy-dev liblzo2-2 liblzo2-dev
-
+apt-get install -y openssh-server ntp libsnappy1 libsnappy-dev liblzo2-2 liblzo2-dev
 
 COPY tars/ /tmp/
 
@@ -31,7 +29,7 @@ RUN tar zxf /tmp/hadoop-2.7.2.tar.gz -C /usr/local/ && \
 rm /tmp/hadoop-2.7.2.tar.gz
 
 # Setup hadoop environment
-COPY ./files/hadoop.sh /etc/profile.d/hadoop.sh
+COPY files/hadoop.sh /etc/profile.d/hadoop.sh
 
 ENV HADOOP_PREFIX /usr/local/hadoop-2.7.2
 ENV HADOOP_COMMON_HOME $HADOOP_PREFIX
@@ -48,13 +46,12 @@ RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/local/jdk1.7.0_80\nex
 RUN sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop-2.7.2/etc/hadoop/:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
 
 # move all configuration files into container
-COPY files/ /tmp/
+COPY files/ssh_config ~/.ssh/config/ssh_config
 
 #configure ssh free key access
 RUN mkdir /var/run/sshd && \
 ssh-keygen -t rsa -f ~/.ssh/id_rsa -P '' && \
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys && \
-mv /tmp/ssh_config ~/.ssh/config && \
 sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
 #create users and groups
