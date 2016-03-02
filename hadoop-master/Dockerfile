@@ -13,23 +13,25 @@ mkdir $HADOOP_INSTALL/logs && \
 chown -R hdfs:hadoop /var/data/hadoop/hdfs/nn && \
 mkdir -p /usr/local/consul-watch
 
-ADD ./config /usr/local/consul/config/
+COPY ./config /usr/local/consul/config/
 
-ADD files/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml
-ADD files/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml
-ADD files/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml
-ADD files/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml
-ADD files/bootstrap.sh /etc/bootstrap.sh
+COPY files/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml
+COPY files/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml
+COPY files/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml
+COPY files/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml
 
-ADD files/start-hadoop.sh /root/start-hadoop.sh
-ADD files/run-wordcount.sh /root/run-wordcount.sh
+COPY files/bootstrap.sh /etc/bootstrap.sh
+RUN chmod +x /etc/bootstrap.sh
 
-ADD files/my-service-handler.sh /usr/local/consul-watch/my-service-handler.sh
-ADD files/template.cfg /usr/local/consul-watch/template.cfg
-ADD files/template.ctmpl /usr/local/consul-watch/template.ctmpl
-ADD files/watch-helper.py /usr/local/consul-watch/watch-helper.py
+COPY files/start-hadoop.sh /root/start-hadoop.sh
+COPY files/run-wordcount.sh /root/run-wordcount.sh
 
-ADD files/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
+COPY files/my-service-handler.sh /usr/local/consul-watch/my-service-handler.sh
+COPY files/template.cfg /usr/local/consul-watch/template.cfg
+COPY files/template.ctmpl /usr/local/consul-watch/template.ctmpl
+COPY files/watch-helper.py /usr/local/consul-watch/watch-helper.py
+
+COPY files/supervisor.conf /etc/supervisor/conf.d/supervisor.conf
 
 RUN chmod +x ~/start-hadoop.sh && \
 chmod +x ~/run-wordcount.sh && \
@@ -41,18 +43,16 @@ RUN touch $HADOOP_INSTALL/etc/hadoop/dfs.include && \
 touch $HADOOP_INSTALL/etc/hadoop/yarn.include && \
 touch $HADOOP_INSTALL/etc/hadoop/slaves
 
-#RUN source /etc/profile
-
 # format namenode
 RUN sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
 
-ADD tars/ /tmp/
+COPY tars/ /tmp/
 
 #RUN wget -c -O "apache-hive-1.2.1-bin.tar.gz" "http://apache.rediris.es/hive/hive-1.2.1/apache-hive-1.2.1-bin.tar.gz" && \
 RUN tar zxf /tmp/apache-hive-1.2.1-bin.tar.gz -C /usr/local/ && \
 rm /tmp/apache-hive-1.2.1-bin.tar.gz
 
-ADD ./files/hive /etc/profile.d/hive
+COPY ./files/hive.sh /etc/profile.d/hive.sh
 
 RUN source /etc/profile
 

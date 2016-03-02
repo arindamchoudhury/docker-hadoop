@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source /etc/profile
+
 service ssh start
 
 service ntp start

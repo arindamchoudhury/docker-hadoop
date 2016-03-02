@@ -12,7 +12,7 @@ apt-get install -y openssh-server wget && \
 apt-get install -y libsnappy1 libsnappy-dev liblzo2-2 liblzo2-dev
 
 
-ADD tars/ /tmp/
+COPY tars/ /tmp/
 
 #Download jdk-7u79 and extract to /usr/local/
 RUN apt-get purge openjdk*
@@ -20,7 +20,7 @@ RUN apt-get purge openjdk*
 RUN tar zxf /tmp/jdk-7u80-linux-x64.tar.gz -C /usr/local/ && \
 rm /tmp/jdk-7u80-linux-x64.tar.gz
 #Setup Java environment
-ADD ./files/java /etc/profile.d/java
+COPY ./files/java.sh /etc/profile.d/java.sh
 
 ENV JAVA_HOME /usr/local/jdk1.7.0_80
 ENV PATH $JAVA_HOME/bin:$PATH
@@ -31,7 +31,7 @@ RUN tar zxf /tmp/hadoop-2.7.2.tar.gz -C /usr/local/ && \
 rm /tmp/hadoop-2.7.2.tar.gz
 
 # Setup hadoop environment
-ADD ./files/hadoop /etc/profile.d/hadoop
+COPY ./files/hadoop.sh /etc/profile.d/hadoop.sh
 
 ENV HADOOP_PREFIX /usr/local/hadoop-2.7.2
 ENV HADOOP_COMMON_HOME $HADOOP_PREFIX
@@ -48,7 +48,7 @@ RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/local/jdk1.7.0_80\nex
 RUN sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop-2.7.2/etc/hadoop/:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
 
 # move all configuration files into container
-ADD files/ /tmp/
+COPY files/ /tmp/
 
 #configure ssh free key access
 RUN mkdir /var/run/sshd && \
