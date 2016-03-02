@@ -7,6 +7,7 @@ mkdir -p hadoop-hive/tars
 cd consul/tars
 
 wget -c -O "consul_0.6.3_linux_amd64.zip" "https://releases.hashicorp.com/consul/0.6.3/consul_0.6.3_linux_amd64.zip"
+wget -c -O "consul-template_0.13.0_linux_amd64.zip" "https://releases.hashicorp.com/consul-template/0.13.0/consul-template_0.13.0_linux_amd64.zip"
 
 cd ../../hadoop-base/tars
 

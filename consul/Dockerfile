@@ -23,10 +23,10 @@ unzip /tmp/consul_0.6.3_linux_amd64.zip -d /usr/local/consul/bin && \
 rm /tmp/consul_0.6.3_linux_amd64.zip
 
 # Download and extract consul-template
-RUN wget -c -O "consul-template_0.13.0_linux_amd64.zip" "https://releases.hashicorp.com/consul-template/0.13.0/consul-template_0.13.0_linux_amd64.zip" && \
-mkdir -p /usr/local/consul/bin && \
-unzip consul-template_0.13.0_linux_amd64.zip -d /usr/local/consul/bin && \
-rm consul-template_0.13.0_linux_amd64.zip
+#RUN wget -c -O "consul-template_0.13.0_linux_amd64.zip" "https://releases.hashicorp.com/consul-template/0.13.0/consul-template_0.13.0_linux_amd64.zip" && \
+COPY tars/consul-template_0.13.0_linux_amd64.zip /tmp/consul-template_0.13.0_linux_amd64.zip && \
+unzip /tmp/consul-template_0.13.0_linux_amd64.zip -d /usr/local/consul/bin && \
+rm /tmp/consul-template_0.13.0_linux_amd64.zip
 
 ##Setup Consul environment
 COPY files/consul.sh /etc/profile.d/consul.sh
