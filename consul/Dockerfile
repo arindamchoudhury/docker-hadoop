@@ -20,7 +20,7 @@ COPY tars/consul_0.6.3_linux_amd64.zip /tmp/consul_0.6.3_linux_amd64.zip
 RUN mkdir -p /usr/local/consul/bin && \
 mkdir -p /usr/local/consul/logs && \
 unzip /tmp/consul_0.6.3_linux_amd64.zip -d /usr/local/consul/bin && \
-rm consul_0.6.3_linux_amd64.zip
+rm /tmp/consul_0.6.3_linux_amd64.zip
 
 # Download and extract consul-template
 RUN wget -c -O "consul-template_0.13.0_linux_amd64.zip" "https://releases.hashicorp.com/consul-template/0.13.0/consul-template_0.13.0_linux_amd64.zip" && \
