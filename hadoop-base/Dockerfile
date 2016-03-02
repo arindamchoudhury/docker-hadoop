@@ -10,7 +10,8 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get update && \
 apt-get install -y openssh-server ntp libsnappy1 libsnappy-dev liblzo2-2 liblzo2-dev
 
-COPY tars/ /tmp/
+COPY tars/jdk-7u80-linux-x64.tar.gz /tmp/jdk-7u80-linux-x64.tar.gz
+COPY tars/hadoop-2.7.2.tar.gz /tmp/hadoop-2.7.2.tar.gz
 
 #Download jdk-7u79 and extract to /usr/local/
 RUN apt-get purge openjdk*
@@ -18,7 +19,7 @@ RUN apt-get purge openjdk*
 RUN tar zxf /tmp/jdk-7u80-linux-x64.tar.gz -C /usr/local/ && \
 rm /tmp/jdk-7u80-linux-x64.tar.gz
 #Setup Java environment
-COPY ./files/java.sh /etc/profile.d/java.sh
+COPY files/java.sh /etc/profile.d/java.sh
 
 ENV JAVA_HOME /usr/local/jdk1.7.0_80
 ENV PATH $JAVA_HOME/bin:$PATH

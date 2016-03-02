@@ -13,7 +13,7 @@ RUN chmod +x /etc/bootstrap.sh
 
 RUN chmod +x /etc/bootstrap.sh
 
-COPY tars/ /tmp/
+COPY tars/apache-hive-1.2.1-bin.tar.gz /tmp/apache-hive-1.2.1-bin.tar.gz
 
 #RUN wget -c -O "apache-hive-1.2.1-bin.tar.gz" "http://apache.rediris.es/hive/hive-1.2.1/apache-hive-1.2.1-bin.tar.gz" && \
 RUN tar zxf /tmp/apache-hive-1.2.1-bin.tar.gz -C /usr/local/ && \
