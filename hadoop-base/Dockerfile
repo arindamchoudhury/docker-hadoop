@@ -8,7 +8,8 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 # install required packages
 RUN apt-get update && \
-apt-get install -y ntp libsnappy1 libsnappy-dev liblzo2-2 liblzo2-dev python-psutil libxml2-utils #openssh-server
+apt-get install -y ntp libsnappy1 libsnappy-dev liblzo2-2 liblzo2-dev python-psutil libxml2-utils libssl1.0.0 libssl-dev
+#openssh-server
 
 COPY tars/jdk-7u80-linux-x64.tar.gz /tmp/jdk-7u80-linux-x64.tar.gz
 COPY tars/hadoop-2.7.2.tar.gz /tmp/hadoop-2.7.2.tar.gz
