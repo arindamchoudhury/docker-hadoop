@@ -21,9 +21,6 @@ rm /tmp/jdk-7u80-linux-x64.tar.gz
 #Setup Java environment
 COPY files/java.sh /etc/profile.d/java.sh
 
-ENV JAVA_HOME /usr/local/jdk1.7.0_80
-ENV PATH $JAVA_HOME/bin:$PATH
-
 # Download Hadoop and extract to /usr/local/
 #RUN wget -c -O "hadoop-2.7.2.tar.gz" "http://apache.rediris.es/hadoop/common/hadoop-2.7.2/hadoop-2.7.2.tar.gz" && \
 RUN tar zxf /tmp/hadoop-2.7.2.tar.gz -C /usr/local/ && \
@@ -31,16 +28,6 @@ rm /tmp/hadoop-2.7.2.tar.gz
 
 # Setup hadoop environment
 COPY files/hadoop.sh /etc/profile.d/hadoop.sh
-
-ENV HADOOP_PREFIX /usr/local/hadoop-2.7.2
-ENV HADOOP_COMMON_HOME $HADOOP_PREFIX
-ENV HADOOP_HDFS_HOME $HADOOP_PREFIX
-ENV HADOOP_MAPRED_HOME $HADOOP_PREFIX
-ENV HADOOP_YARN_HOME $HADOOP_PREFIX
-ENV HADOOP_CONF_DIR $HADOOP_PREFIX/etc/hadoop
-ENV YARN_CONF_DIR $HADOOP_PREFIX/etc/hadoop
-ENV PATH $HADOOP_PREFIX/bin:$HADOOP_PREFIX/sbin:$PATH
-
 
 # Modify hadoop-env.sh
 RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/local/jdk1.7.0_80\nexport HADOOP_PREFIX=/usr/local/hadoop-2.7.2\nexport HADOOP_HOME=/usr/local/hadoop-2.7.2\n:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
@@ -62,19 +49,14 @@ useradd -g hadoop -m -s /bin/bash hdfs && \
 useradd -g hadoop -m -s /bin/bash mapred && \
 useradd -g hadoop -m -s /bin/bash hive
 
-ENV HADOOP_LOG_DIR /var/log/hadoop
-ENV YARN_LOG_DIR /var/log/hadoop
-
 RUN mkdir $HADOOP_LOG_DIR && \
-chgrp -R hadoop $HADOOP_PREFIX && \
-chmod -R g+rwxs $HADOOP_PREFIX && \
 chgrp -R hadoop $HADOOP_LOG_DIR && \
 chmod -R g+rwxs $HADOOP_LOG_DIR
 
-COPY files/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml
-COPY files/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml
-COPY files/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml
-COPY files/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml
+COPY files/hdfs-site.xml /usr/local/hadoop-2.7.2/etc/hadoop/hdfs-site.xml
+COPY files/core-site.xml /usr/local/hadoop-2.7.2/etc/hadoop/core-site.xml
+COPY files/mapred-site.xml /usr/local/hadoop-2.7.2/etc/hadoop/mapred-site.xml
+COPY files/yarn-site.xml /usr/local/hadoop-2.7.2/etc/hadoop/yarn-site.xml
 
 COPY files/memory_config.py /etc/memory_config.py
 RUN chmod +x /etc/memory_config.py
