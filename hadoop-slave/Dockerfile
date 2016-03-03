@@ -5,8 +5,7 @@ MAINTAINER Arindam Choudhury <arindam@live.com>
 WORKDIR /home/hdfs
 
 RUN mkdir -p /var/data/hadoop/hdfs/dn && \
-chown -R hdfs:hadoop /var/data/hadoop/hdfs/dn && \
-
+chown -R hdfs:hadoop /var/data/hadoop/hdfs/dn
 
 COPY files/bootstrap.sh /etc/bootstrap.sh
 RUN chmod +x /etc/bootstrap.sh
