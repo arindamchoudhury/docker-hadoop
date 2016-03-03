@@ -49,9 +49,9 @@ useradd -g hadoop -m -s /bin/bash hdfs && \
 useradd -g hadoop -m -s /bin/bash mapred && \
 useradd -g hadoop -m -s /bin/bash hive
 
-RUN mkdir $HADOOP_LOG_DIR && \
-chgrp -R hadoop $HADOOP_LOG_DIR && \
-chmod -R g+rwxs $HADOOP_LOG_DIR
+RUN mkdir /var/log/hadoop && \
+chgrp -R hadoop /var/log/hadoop && \
+chmod -R g+rwxs /var/log/hadoop
 
 COPY files/hdfs-site.xml /usr/local/hadoop-2.7.2/etc/hadoop/hdfs-site.xml
 COPY files/core-site.xml /usr/local/hadoop-2.7.2/etc/hadoop/core-site.xml
