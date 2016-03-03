@@ -18,7 +18,8 @@ limitations under the License.
 '''
 import sys
 import math
-import ast
+import xml.etree.ElementTree as ET
+from commands import getstatusoutput
 
 ''' Reserved for OS + DN + NM,  Map: Memory => Reservation '''
 reservedStack = { 4:1, 8:2, 16:2, 24:4, 48:6, 64:8, 72:8, 96:12,
@@ -38,7 +39,6 @@ def getMinContainerSize(memory):
         return 1024
     else:
         return 2048
-    pass
 
 def getReservedStackMemory(memory):
     if (reservedStack.has_key(memory)):
@@ -62,17 +62,19 @@ def getReservedHBaseMem(memory):
         ret = 2
     return ret
 
-def update_xml_config(filename, name, value):
-    import xml.etree.ElementTree as ET
+def update_xml_config(filename, xml_value_dict):
     tree = ET.parse(filename)
     root = tree.getroot()
     property = ET.SubElement(root, "property")
-    name_key = ET.SubElement(property, "name")
-    name_key.text = name
-    value_key = ET.SubElement(property, "value")
-    value_key.text = value
-    tree = ET.ElementTree(root)
+    for item in xml_value_dict:
+        name_key = ET.SubElement(parent = property, tag = "name")
+        name_key.text = item
+
+        value_key = ET.SubElement(parent = property, tag = "value")
+        value_key.text = xml_value_dict[item]
+
     tree.write(filename)
+    retcode, output = getstatusoutput('xmllint --format '+filename+' -o '+filename)
 
 def _get_cores():
     import multiprocessing
@@ -90,6 +92,9 @@ def _get_mem():
 def main():
     yarn_site = '/usr/local/hadoop-2.7.2/etc/hadoop/yarn-site.xml'
     mapred_site = '/usr/local/hadoop-2.7.2/etc/hadoop/mapred-site.xml'
+
+    yarn_dict = {}
+    mapred_dict= {}
 
     memory = _get_mem()
     cores = 0
@@ -116,31 +121,28 @@ def main():
     if (containers <= 2):
         containers = 3
 
-    log.info("Profile: cores=" + str(cores) + " memory=" + str(memory) + "MB"
-           + " reserved=" + str(reservedMem) + "GB" + " usableMem="
-           + str(usableMem) + "GB" + " disks=" + str(disks))
-
     container_ram =  abs(memory/containers)
     if (container_ram > GB):
         container_ram = int(math.floor(container_ram / 512)) * 512
-    log.info("Num Container=" + str(containers))
-    log.info("Container Ram=" + str(container_ram) + "MB")
-    log.info("Used Ram=" + str(int (containers*container_ram/float(GB))) + "GB")
-    log.info("Unused Ram=" + str(reservedMem) + "GB")
-    log.info("yarn.scheduler.minimum-allocation-mb=" + str(container_ram))
-    log.info("yarn.scheduler.maximum-allocation-mb=" + str(containers*container_ram))
-    log.info("yarn.nodemanager.resource.memory-mb=" + str(containers*container_ram))
+
+
+    yarn_dict["yarn.scheduler.minimum-allocation-mb"] = str(container_ram)
+    yarn_dict["yarn.scheduler.maximum-allocation-mb"] = str(containers*container_ram)
+    yarn_dict["yarn.nodemanager.resource.memory-mb"] = str(containers*container_ram)
     map_memory = container_ram
     reduce_memory = 2*container_ram if (container_ram <= 2048) else container_ram
     am_memory = max(map_memory, reduce_memory)
-    log.info("mapreduce.map.memory.mb=" + str(map_memory))
-    log.info("mapreduce.map.java.opts=-Xmx" + str(int(0.8 * map_memory)) +"m")
-    log.info("mapreduce.reduce.memory.mb=" + str(reduce_memory))
-    log.info("mapreduce.reduce.java.opts=-Xmx" + str(int(0.8 * reduce_memory)) + "m")
-    log.info("yarn.app.mapreduce.am.resource.mb=" + str(am_memory))
-    log.info("yarn.app.mapreduce.am.command-opts=-Xmx" + str(int(0.8*am_memory)) + "m")
-    log.info("mapreduce.task.io.sort.mb=" + str(int(0.4 * map_memory)))
-    pass
+    mapred_dict["mapreduce.map.memory.mb"] =  str(map_memory)
+    mapred_dict["mapreduce.map.java.opts"] = "-Xmx" + str(int(0.8 * map_memory)) +"m"
+    mapred_dict["mapreduce.reduce.memory.mb"] = str(reduce_memory)
+    mapred_dict["mapreduce.reduce.java.opts"] = "-Xmx" + str(int(0.8 * reduce_memory)) + "m"
+    mapred_dict["yarn.app.mapreduce.am.resource.mb"] = str(am_memory)
+    mapred_dict["yarn.app.mapreduce.am.command-opts"] = "-Xmx" + str(int(0.8*am_memory)) + "m"
+    mapred_dict["mapreduce.task.io.sort.mb"] = str(int(0.4 * map_memory))
+
+    update_xml_config(yarn_site, yarn_dict)
+    update_xml_config(mapred_site, mapred_dict)
+
 
 if __name__ == '__main__':
     try:

@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
-service ssh start
+source /etc/profile
+
+python /etc/memory_config.py
+
+chgrp -R hadoop $HADOOP_PREFIX
+chmod -R g+rwxs $HADOOP_PREFIX
+
+#service ssh start
 
 service ntp start
 

@@ -15,11 +15,6 @@ mkdir -p /usr/local/consul-watch
 COPY config/service.json /usr/local/consul/config/service.json
 COPY config/watches.json /usr/local/consul/config/watches.json
 
-COPY files/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml
-COPY files/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml
-COPY files/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml
-COPY files/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml
-
 COPY files/bootstrap.sh /etc/bootstrap.sh
 RUN chmod +x /etc/bootstrap.sh
 

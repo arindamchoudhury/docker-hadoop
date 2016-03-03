@@ -4,17 +4,9 @@ MAINTAINER Arindam Choudhury <arindam@live.com>
 
 WORKDIR /home/hdfs
 
-ENV HADOOP_INSTALL /usr/local/hadoop-2.7.2
-
 RUN mkdir -p /var/data/hadoop/hdfs/dn && \
 chown -R hdfs:hadoop /var/data/hadoop/hdfs/dn && \
-chgrp -R hadoop $HADOOP_INSTALL && \
-chmod -R g+rwxs $HADOOP_INSTALL
 
-COPY files/hdfs-site.xml $HADOOP_INSTALL/etc/hadoop/hdfs-site.xml
-COPY files/core-site.xml $HADOOP_INSTALL/etc/hadoop/core-site.xml
-COPY files/mapred-site.xml $HADOOP_INSTALL/etc/hadoop/mapred-site.xml
-COPY files/yarn-site.xml $HADOOP_INSTALL/etc/hadoop/yarn-site.xml
 
 COPY files/bootstrap.sh /etc/bootstrap.sh
 RUN chmod +x /etc/bootstrap.sh
