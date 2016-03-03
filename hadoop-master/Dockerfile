@@ -24,9 +24,9 @@ COPY files/template.ctmpl /usr/local/consul-watch/template.ctmpl
 RUN chmod +x /usr/local/consul-watch/my-service-handler.sh && \
 chmod +x /etc/bootstrap.sh
 
-RUN touch $HADOOP_INSTALL/etc/hadoop/dfs.include && \
-touch $HADOOP_INSTALL/etc/hadoop/yarn.include && \
-touch $HADOOP_INSTALL/etc/hadoop/slaves
+RUN touch /usr/local/hadoop-2.7.2/etc/hadoop/dfs.include && \
+touch /usr/local/hadoop-2.7.2/etc/hadoop/yarn.include && \
+touch /usr/local/hadoop-2.7.2/etc/hadoop/slaves
 
 # format namenode
 #RUN source /etc/profile
