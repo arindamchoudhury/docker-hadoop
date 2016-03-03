@@ -34,7 +34,7 @@ sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chmod -R 1777 /app-logs
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chown yarn:hdfs /app-logs
 
-sudo -E -u yarn /usr/local/hadoop-2.7.2/sbin/yarn-daemon.sh start historyserver
+sudo -E -u yarn /usr/local/hadoop-2.7.2/sbin/mr-jobhistory-daemon.sh start historyserver
 
 if [[ $1 == "-d" ]]; then
   while true; do sleep 1000; done
