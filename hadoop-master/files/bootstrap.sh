@@ -8,6 +8,8 @@ chgrp -R hadoop $HADOOP_PREFIX
 chmod -R g+rwxs $HADOOP_PREFIX
 
 #service ssh start
+#sed -i '/^#export HADOOP_HEAPSIZE=/ s:.*:export HADOOP_HEAPSIZE==500:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
+#sed -i '/^export HADOOP_JOB_HISTORYSERVER_HEAPSIZE/ s:.*:export HADOOP_JOB_HISTORYSERVER_HEAPSIZE=500:' /usr/local/hadoop-2.7.2/etc/hadoop/mapred-env.sh
 
 service ntp start
 
