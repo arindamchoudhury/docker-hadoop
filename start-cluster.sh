@@ -37,4 +37,18 @@ done
 
 
 # create a new Bash session in the master container
+
+echo "please wait till your hadoop cluster got configured..."
+
+while true
+do
+  STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8500/v1/kv/hadoop/historyserver)
+  if [ $STATUS -eq 200 ]; then
+    break
+  fi
+  sleep 3
+done
+
+sleep 3
+
 docker exec -it -u hdfs master bash

@@ -19,5 +19,3 @@ COPY files/tez-site.xml /usr/local/hadoop-2.7.2/etc/hadoop/tez-site.xml
 COPY files/tez.sh /etc/profile.d/tez.sh
 
 CMD ["/etc/bootstrap.sh", "-d"]
-
-

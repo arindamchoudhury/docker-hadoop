@@ -13,7 +13,26 @@ service ntp start
 
 nohup /usr/local/consul/bin/consul agent -config-dir /usr/local/consul/config --domain=$CONSUL_DOMAIN_NAME -join $CONSUL_SERVER_ADDR >>/var/log/consul.log 2>&1 &
 
+while true
+do
+  STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8500/v1/kv/hadoop/namenode)
+  if [ $STATUS -eq 200 ]; then
+    break
+  fi
+  sleep 3
+done
+
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/sbin/hadoop-daemon.sh start datanode
+
+while true
+do
+  STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8500/v1/kv/hadoop/resourcemanager)
+  if [ $STATUS -eq 200 ]; then
+    break
+  fi
+  sleep 3
+done
+
 sudo -E -u yarn /usr/local/hadoop-2.7.2/sbin/yarn-daemon.sh start nodemanager
 
 if [[ $1 == "-d" ]]; then
