@@ -10,7 +10,7 @@ RUN chmod +x /etc/bootstrap.sh
 COPY files/tez-0.8.2.tar.gz /tmp/tez-0.8.2.tar.gz
 COPY files/tez-0.8.2-minimal.tar.gz /tmp/tez-0.8.2-minimal.tar.gz
 
-RUN mkdir -p tez-0.8.2-minimal && \
+RUN mkdir -p /usr/local/tez-0.8.2-minimal && \
 tar zxf /tmp/tez-0.8.2-minimal.tar.gz -C /usr/local/tez-0.8.2-minimal && \
 rm /tmp/tez-0.8.2-minimal.tar.gz
 
