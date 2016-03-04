@@ -15,12 +15,17 @@ nohup /usr/local/consul/bin/consul agent -config-dir /usr/local/consul/config --
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
 
+curl -X PUT -d 'formatted' http://localhost:8500/v1/kv/hadoop/namenodeformat
+
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/sbin/hadoop-daemon.sh start namenode
+
+curl -X PUT -d 'started' http://localhost:8500/v1/kv/hadoop/namenode
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -mkdir -p /user/hdfs
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chown hdfs:hadoop /user/hdfs
 
 sudo -E -u yarn /usr/local/hadoop-2.7.2/sbin/yarn-daemon.sh start resourcemanager
+curl -X PUT -d 'started' http://localhost:8500/v1/kv/hadoop/resourcemanager
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -mkdir -p /mr-history/tmp
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chmod -R 1777 /mr-history/tmp
@@ -37,7 +42,13 @@ sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chown yarn:hdfs /app-logs
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -mkdir -p /tmp/hadoop-yarn
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chown yarn:hadoop /tmp/hadoop-yarn
 
+sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -mkdir -p /user/hive/warehouse
+sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chmod g+w /tmp
+sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chmod g+w /user/hive/warehouse
+
 sudo -E -u yarn /usr/local/hadoop-2.7.2/sbin/mr-jobhistory-daemon.sh start historyserver
+curl -X PUT -d 'started' http://localhost:8500/v1/kv/hadoop/historyserver
+
 
 if [[ $1 == "-d" ]]; then
   while true; do sleep 1000; done
