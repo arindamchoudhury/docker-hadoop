@@ -6,8 +6,6 @@ WORKDIR /home/hdfs
 
 # move all confugration files into container
 
-ENV HADOOP_INSTALL /usr/local/hadoop-2.7.2
-
 COPY files/bootstrap.sh /etc/bootstrap.sh
 RUN chmod +x /etc/bootstrap.sh
 
