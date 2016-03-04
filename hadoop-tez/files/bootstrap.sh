@@ -39,6 +39,12 @@ sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chown yarn:hadoop /tmp/had
 
 sudo -E -u yarn /usr/local/hadoop-2.7.2/sbin/mr-jobhistory-daemon.sh start historyserver
 
+sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -mkdir -p /apps/tez-0.8.2
+sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -put /tmp/tez-0.8.2.tar.gz /apps/tez-0.8.2
+sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chown -R hdfs:hadoop /hdp
+sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chmod -R 555 /apps/tez-0.8.2
+sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chmod -R 444 /apps/tez-0.8.2/tez-0.8.2.tar.gz
+
 if [[ $1 == "-d" ]]; then
   while true; do sleep 1000; done
 fi
