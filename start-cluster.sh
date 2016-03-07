@@ -14,7 +14,7 @@ fi
 
 docker rm -f consul-server &> /dev/null
 echo "start consul-server container..."
-docker run -e CONSUL_DOMAIN_NAME=$DOMAIN --name=consul-server -d -h server --dns-search $DNS_SEARCH --dns 127.0.0.1 arindamchoudhury/consul-server &> /dev/null
+docker run -e CONSUL_DOMAIN_NAME=$DOMAIN --name=consul-server -d -h server --dns-search $DNS_SEARCH --dns 127.0.0.1 --env-file consul-server/files/env.list arindamchoudhury/consul-server &> /dev/null
 
 SERVER_IP=$(docker inspect --format="{{.NetworkSettings.IPAddress}}" consul-server)
 
