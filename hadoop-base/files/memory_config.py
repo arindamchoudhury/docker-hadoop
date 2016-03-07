@@ -65,8 +65,9 @@ def getReservedHBaseMem(memory):
 def update_xml_config(filename, xml_value_dict):
     tree = ET.parse(filename)
     root = tree.getroot()
-    property = ET.SubElement(root, "property")
+
     for item in xml_value_dict:
+        property = ET.SubElement(root, "property")
         name_key = ET.SubElement(parent = property, tag = "name")
         name_key.text = item
 
