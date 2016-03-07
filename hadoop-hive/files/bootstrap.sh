@@ -49,6 +49,7 @@ sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chmod g+w /user/hive/wareh
 sudo -E -u yarn /usr/local/hadoop-2.7.2/sbin/mr-jobhistory-daemon.sh start historyserver
 curl -X PUT -d 'started' http://localhost:8500/v1/kv/hadoop/historyserver
 
+curl -X PUT -d 'started' http://localhost:8500/v1/kv/hadoop/finished
 
 if [[ $1 == "-d" ]]; then
   while true; do sleep 1000; done

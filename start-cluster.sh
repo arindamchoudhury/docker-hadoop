@@ -42,13 +42,11 @@ echo "please wait till your hadoop cluster is getting configured..."
 
 while true
 do
-  STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://$SERVER_IP:8500/v1/kv/hadoop/historyserver)
+  STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://$SERVER_IP:8500/v1/kv/hadoop/finished)
   if [ $STATUS -eq 200 ]; then
     break
   fi
   sleep 3
 done
-
-sleep 3
 
 docker exec -it -u hdfs master bash
