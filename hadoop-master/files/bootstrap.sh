@@ -12,7 +12,7 @@ nohup /usr/local/consul/bin/consul agent -config-dir /usr/local/consul/config --
 
 while true
 do
-  STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8500/v1/kv/hadoop/hadoop/hadoopconfiguration)
+  STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8500/v1/kv/hadoop/hadoopconfiguration)
   if [ $STATUS -eq 200 ]; then
     break
   fi
