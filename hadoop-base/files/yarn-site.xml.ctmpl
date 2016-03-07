@@ -11,7 +11,7 @@
   </property>
   <property>
     <name>yarn.resourcemanager.hostname</name>
-    <value>master</value>
+    <value>{{key "YARN_RESOURCEMANGER_HOSTNAME"}}</value>
   </property>
   <property>
     <name>yarn.resourcemanager.nodes.include-path</name>

@@ -2,11 +2,6 @@
 
 source /etc/profile
 
-python /etc/memory_config.py
-
-chgrp -R hadoop $HADOOP_PREFIX
-chmod -R g+rwxs $HADOOP_PREFIX
-
 #service ssh start
 #sed -i '/^#export HADOOP_HEAPSIZE=/ s:.*:export HADOOP_HEAPSIZE==500:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
 #sed -i '/^export HADOOP_JOB_HISTORYSERVER_HEAPSIZE/ s:.*:export HADOOP_JOB_HISTORYSERVER_HEAPSIZE=500:' /usr/local/hadoop-2.7.2/etc/hadoop/mapred-env.sh
@@ -14,6 +9,31 @@ chmod -R g+rwxs $HADOOP_PREFIX
 service ntp start
 
 nohup /usr/local/consul/bin/consul agent -config-dir /usr/local/consul/config --domain=$CONSUL_DOMAIN_NAME -join $CONSUL_SERVER_ADDR >>/var/log/consul.log 2>&1 &
+
+while true
+do
+  STATUS=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8500/v1/kv/hadoop/hadoop/hadoopconfiguration)
+  if [ $STATUS -eq 200 ]; then
+    break
+  fi
+  sleep 3
+done
+
+curl -X PUT -d $HOSTNAME http://localhost:8500/v1/kv/NAMENODE_ADDR
+curl -X PUT -d $HOSTNAME http://localhost:8500/v1/kv/JOBHISTORY_ADDR
+curl -X PUT -d $HOSTNAME http://localhost:8500/v1/kv/YARN_RESOURCEMANGER_HOSTNAME
+
+#export putoamo=$(curl -s http://localhost:8500/v1/kv/NAMENODE_ADDR?raw)
+
+consul-template -template "/tmp/core-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/core-site.xml" -once
+consul-template -template "/tmp/hdfs-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hdfs-site.xml" -once
+consul-template -template "/tmp/mapred-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/mapred-site.xml" -once
+consul-template -template "/tmp/yarn-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/yarn-site.xml" -once
+
+python /etc/memory_config.py
+
+chgrp -R hadoop $HADOOP_PREFIX
+chmod -R g+rwxs $HADOOP_PREFIX
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
 

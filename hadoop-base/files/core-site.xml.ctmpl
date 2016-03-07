@@ -3,7 +3,7 @@
 <configuration>
   <property>
     <name>fs.defaultFS</name>
-    <value>hdfs://master:9000</value>
+    <value>hdfs://{{key "NAMENODE_ADDR"}}:{{key "NAMENODE_PORT"}}</value>
   </property>
   <property>
     <name>hadoop.http.staticuser.user</name>

@@ -2,11 +2,6 @@
 
 source /etc/profile
 
-python /etc/memory_config.py
-
-chgrp -R hadoop $HADOOP_PREFIX
-chmod -R g+rwxs $HADOOP_PREFIX
-
 #service ssh start
 
 service ntp start
@@ -21,6 +16,16 @@ do
   fi
   sleep 3
 done
+
+consul-template -template "/tmp/core-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/core-site.xml" -once
+consul-template -template "/tmp/hdfs-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hdfs-site.xml" -once
+consul-template -template "/tmp/mapred-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/mapred-site.xml" -once
+consul-template -template "/tmp/yarn-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/yarn-site.xml" -once
+
+python /etc/memory_config.py
+
+chgrp -R hadoop $HADOOP_PREFIX
+chmod -R g+rwxs $HADOOP_PREFIX
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/sbin/hadoop-daemon.sh start datanode
 
