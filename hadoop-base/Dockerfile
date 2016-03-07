@@ -54,10 +54,10 @@ RUN mkdir /var/log/hadoop && \
 chgrp -R hadoop /var/log/hadoop && \
 chmod -R g+rwxs /var/log/hadoop
 
-COPY files/hdfs-site.xml /tmp/hdfs-site.xml.ctmpl
-COPY files/core-site.xml /tmp/core-site.xml.ctmpl
-COPY files/mapred-site.xml /tmp/mapred-site.xml.ctmpl
-COPY files/yarn-site.xml /tmp/yarn-site.xml.ctmpl
+COPY files/hdfs-site.xml.ctmpl /tmp/hdfs-site.xml.ctmpl
+COPY files/core-site.xml.ctmpl /tmp/core-site.xml.ctmpl
+COPY files/mapred-site.xml.ctmpl /tmp/mapred-site.xml.ctmpl
+COPY files/yarn-site.xml.ctmpl /tmp/yarn-site.xml.ctmpl
 
 COPY files/memory_config.py /etc/memory_config.py
 RUN chmod +x /etc/memory_config.py
