@@ -26,4 +26,12 @@
     <value>/usr/local/hadoop-2.7.2/etc/hadoop/dfs.include</value>
     <final>true</final>
   </property>
+  <property>
+    <name>dfs.blocksize</name>
+    <value>{{key "DFS_BLOCKSIZE"}}</value>
+  </property>
+  <property>
+    <name>dfs.namenode.handler.count</name>
+    <value>{{key "DFS_NAMENODE_HANDLER_COUNT"}}</value>
+  </property>
 </configuration>
