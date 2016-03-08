@@ -21,4 +21,8 @@
     <name>mapreduce.jobhistory.done-dir</name>
     <value>/mr-history/done</value>
   </property>
+  <property>
+    <name>yarn.app.mapreduce.am.staging-dir</name>
+    <value>/user</value>
+  </property>
 </configuration>

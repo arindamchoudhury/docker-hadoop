@@ -34,4 +34,8 @@
     <name>dfs.namenode.handler.count</name>
     <value>{{key "DFS_NAMENODE_HANDLER_COUNT"}}</value>
   </property>
+  <property>
+    <name>dfs.permissions.superusergroup</name>
+    <value>hadoop</value>
+  </property>
 </configuration>
