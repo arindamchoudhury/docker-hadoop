@@ -54,7 +54,7 @@ sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chmod -R 1777 /mr-history/
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -mkdir -p /mr-history/done
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chmod -R 1777 /mr-history/done
-sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chown -R mapred:hdfs /mr-history
+sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chown -R yarn:hdfs /mr-history
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -mkdir -p /app-logs
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chmod -R 1777 /app-logs
@@ -65,6 +65,7 @@ sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -mkdir -p /tmp/hadoop-yarn
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chown yarn:hadoop /tmp/hadoop-yarn
 
 sudo -E -u yarn /usr/local/hadoop-2.7.2/sbin/mr-jobhistory-daemon.sh start historyserver
+
 curl -X PUT -d 'started' http://localhost:8500/v1/kv/hadoop/historyserver
 
 curl -X PUT -d 'started' http://localhost:8500/v1/kv/hadoop/finished
