@@ -25,6 +25,8 @@
 export JAVA_HOME={{key "JAVA_HOME"}}
 export HADOOP_PREFIX={{key "HADOOP_HOME"}}
 export HADOOP_HOME={{key "HADOOP_HOME"}}
+export HADOOP_HDFS_HOME={{key "HADOOP_HOME"}}
+export HADOOP_COMMON_HOME={{key "HADOOP_HOME"}}
 
 # The jsvc implementation to use. Jsvc is required to run secure datanodes
 # that bind to privileged ports to provide authentication of data transfer
@@ -71,7 +73,7 @@ export HADOOP_CLIENT_OPTS="-Xmx512m $HADOOP_CLIENT_OPTS"
 export HADOOP_SECURE_DN_USER=${HADOOP_SECURE_DN_USER}
 
 # Where log files are stored.  $HADOOP_HOME/logs by default.
-#export HADOOP_LOG_DIR=${HADOOP_LOG_DIR}/$USER
+export HADOOP_LOG_DIR={{key "HADOOP_LOG_DIR"}}
 
 # Where log files are stored in the secure data environment.
 export HADOOP_SECURE_DN_LOG_DIR=${HADOOP_LOG_DIR}/${HADOOP_HDFS_USER}

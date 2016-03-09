@@ -56,6 +56,8 @@ COPY files/mapred-site.xml.ctmpl /tmp/mapred-site.xml.ctmpl
 COPY files/yarn-site.xml.ctmpl /tmp/yarn-site.xml.ctmpl
 
 COPY files/hadoop-env.sh.ctmpl /tmp/hadoop-env.sh.ctmpl
+COPY files/yarn-env.sh.ctmpl /tmp/yarn-env.sh.ctmpl
+COPY files/mapred-env.sh.ctmpl /tmp/mapred-env.sh.ctmpl
 
 COPY files/memory_config.py /etc/memory_config.py
 RUN chmod +x /etc/memory_config.py

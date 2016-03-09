@@ -22,8 +22,19 @@ curl -X PUT -d $DFS_DATANODE_DATA_DIR http://localhost:8500/v1/kv/DFS_DATANODE_D
 curl -X PUT -d $JAVA_HOME http://localhost:8500/v1/kv/JAVA_HOME
 curl -X PUT -d $HADOOP_HOME http://localhost:8500/v1/kv/HADOOP_HOME
 curl -X PUT -d $HADOOP_CONF_DIR http://localhost:8500/v1/kv/HADOOP_CONF_DIR
+curl -X PUT -d $HADOOP_LOG_DIR http://localhost:8500/v1/kv/HADOOP_LOG_DIR
 curl -X PUT -d $HADOOP_HEAPSIZE http://localhost:8500/v1/kv/HADOOP_HEAPSIZE
 curl -X PUT -d $HADOOP_NAMENODE_INIT_HEAPSIZE http://localhost:8500/v1/kv/HADOOP_NAMENODE_INIT_HEAPSIZE
+
+#yarn-env
+curl -X PUT -d $YARN_LOG_DIR http://localhost:8500/v1/kv/YARN_LOG_DIR
+curl -X PUT -d $YARN_HEAPSIZE http://localhost:8500/v1/kv/YARN_HEAPSIZE
+curl -X PUT -d $YARN_RESOURCEMANAGER_HEAPSIZE http://localhost:8500/v1/kv/YARN_RESOURCEMANAGER_HEAPSIZE
+curl -X PUT -d $YARN_NODEMANAGER_HEAPSIZE http://localhost:8500/v1/kv/YARN_NODEMANAGER_HEAPSIZE
+
+#mapred-env
+curl -X PUT -d $HADOOP_JOB_HISTORYSERVER_HEAPSIZE http://localhost:8500/v1/kv/HADOOP_JOB_HISTORYSERVER_HEAPSIZE
+curl -X PUT -d $HADOOP_MAPRED_LOG_DIR http://localhost:8500/v1/kv/HADOOP_MAPRED_LOG_DIR
 
 #curl -X PUT -d $ http://localhost:8500/v1/kv/
 
