@@ -47,15 +47,6 @@ do
   chown -R hdfs:hadoop $DIR
 done
 
-#make checkpoints edits dir
-CHECKPOINTEDITSDIRS=$(echo $FS_CHECKPOINT_DIR | tr "," "\n")
-
-for DIR in $CHECKPOINTEDITSDIRS
-do
-  mkdir -p $DIR
-  chown -R hdfs:hadoop $DIR
-done
-
 consul-template -template "/tmp/core-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/core-site.xml" -once
 consul-template -template "/tmp/hdfs-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hdfs-site.xml" -once
 consul-template -template "/tmp/mapred-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/mapred-site.xml" -once

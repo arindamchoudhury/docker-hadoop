@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-
-#!/bin/bash
-
 # run N slave containers
 N=$1
 DOMAIN=${2:-'hadoop-cluster.local'}
@@ -16,7 +13,7 @@ fi
 
 docker rm -f consul-server &> /dev/null
 echo "start consul-server container..."
-docker run -e CONSUL_DOMAIN_NAME=$DOMAIN --name=consul-server -d -h server --dns-search $DNS_SEARCH --dns 127.0.0.1 arindamchoudhury/consul-server  -bootstrap &> /dev/null
+docker run -e CONSUL_DOMAIN_NAME=$DOMAIN --name=consul-server -d -h server --dns-search $DNS_SEARCH --dns 127.0.0.1 --env-file hadoop-configurations.list arindamchoudhury/consul-server &> /dev/null
 
 SERVER_IP=$(docker inspect --format="{{.NetworkSettings.IPAddress}}" consul-server)
 
@@ -50,7 +47,5 @@ do
   fi
   sleep 3
 done
-
-sleep 3
 
 docker exec -it -u hdfs master bash

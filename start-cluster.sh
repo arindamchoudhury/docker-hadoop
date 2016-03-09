@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/usr/bin/env bash
 # run N slave containers
 N=$1
 DOMAIN=${2:-'hadoop-cluster.local'}

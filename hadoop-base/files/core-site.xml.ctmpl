@@ -3,7 +3,7 @@
 <configuration>
   <property>
     <name>fs.defaultFS</name>
-    <value>hdfs://{{key "NAMENODE_ADDR"}}:{{key "NAMENODE_PORT"}}</value>
+    <value>hdfs://{{key "NAMENODE_ADDR"}}:8000</value>
   </property>
    <property>
     <name>io.file.buffer.size</name>
