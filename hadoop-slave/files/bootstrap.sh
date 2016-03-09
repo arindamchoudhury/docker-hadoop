@@ -19,8 +19,14 @@ done
 
 export DFS_DATANODE_DATA_DIR=$(curl -s http://localhost:8500/v1/kv/DFS_DATANODE_DATA_DIR?raw)
 
-mkdir -p $DFS_DATANODE_DATA_DIR
-chown -R hdfs:hadoop $DFS_DATANODE_DATA_DIR
+#make data dir
+DATADIRS=$(echo $DFS_DATANODE_DATA_DIR | tr "," "\n")
+
+for DIR in $DATADIRS
+do
+  mkdir -p $DIR
+  chown -R hdfs:hadoop $DIR
+done
 
 consul-template -template "/tmp/core-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/core-site.xml" -once
 consul-template -template "/tmp/hdfs-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hdfs-site.xml" -once

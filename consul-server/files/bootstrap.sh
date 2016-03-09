@@ -15,7 +15,7 @@ curl -X PUT -d $DFS_NAMENODE_HANDLER_COUNT http://localhost:8500/v1/kv/DFS_NAMEN
 #hdfs-site.xml
 curl -X PUT -d $DFS_REPLICATION http://localhost:8500/v1/kv/DFS_REPLICATION
 curl -X PUT -d $DFS_NAMEDIR http://localhost:8500/v1/kv/DFS_NAMEDIR
-curl -X PUT -d $FS_CHECKPOINR_DIR http://localhost:8500/v1/kv/FS_CHECKPOINR_DIR
+curl -X PUT -d $FS_CHECKPOINT_DIR http://localhost:8500/v1/kv/FS_CHECKPOINR_DIR
 curl -X PUT -d $FS_CHECKPOINT_EDITS_DIR http://localhost:8500/v1/kv/FS_CHECKPOINT_EDITS_DIR
 curl -X PUT -d $DFS_DATANODE_DATA_DIR http://localhost:8500/v1/kv/DFS_DATANODE_DATA_DIR
 

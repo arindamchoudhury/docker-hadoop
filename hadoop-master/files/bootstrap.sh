@@ -24,21 +24,39 @@ curl -X PUT -d $HOSTNAME http://localhost:8500/v1/kv/JOBHISTORY_ADDR
 curl -X PUT -d $HOSTNAME http://localhost:8500/v1/kv/YARN_RESOURCEMANGER_HOSTNAME
 
 export DFS_NAMEDIR=$(curl -s http://localhost:8500/v1/kv/DFS_NAMEDIR?raw)
-export FS_CHECKPOINR_DIR=$(curl -s http://localhost:8500/v1/kv/FS_CHECKPOINR_DIR?raw)
+export FS_CHECKPOINT_DIR=$(curl -s http://localhost:8500/v1/kv/FS_CHECKPOINT_DIR?raw)
 export FS_CHECKPOINT_EDITS_DIR=$(curl -s http://localhost:8500/v1/kv/FS_CHECKPOINT_EDITS_DIR?raw)
 #export =$(curl -s http://localhost:8500/v1/kv/?raw)
 
-mkdir -p $DFS_NAMEDIR
-chown -R hdfs:hadoop $DFS_NAMEDIR
 
-mkdir -p $FS_CHECKPOINR_DIR
-chown -R hdfs:hadoop $FS_CHECKPOINR_DIR
+#make name dir
+NAMEDIRS=$(echo $DFS_NAMEDIR | tr "," "\n")
 
-mkdir -p $FS_CHECKPOINT_EDITS_DIR
-chown -R hdfs:hadoop $FS_CHECKPOINT_EDITS_DIR
+for DIR in $NAMEDIRS
+do
+  mkdir -p $DIR
+  chown -R hdfs:hadoop $DIR
+done
 
+#make checkpoints dir
+CHECKPOINTDIRS=$(echo $FS_CHECKPOINT_DIR | tr "," "\n")
 
-consul-template -template "/tmp/core-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/core-site.xml" -once
+for DIR in $CHECKPOINTDIRS
+do
+  mkdir -p $DIR
+  chown -R hdfs:hadoop $DIR
+done
+
+#make checkpoints edits dir
+CHECKPOINTEDITSDIRS=$(echo $FS_CHECKPOINT_DIR | tr "," "\n")
+
+for DIR in $CHECKPOINTEDITSDIRS
+do
+  mkdir -p $DIR
+  chown -R hdfs:hadoop $DIR
+done
+
+onsul-template -template "/tmp/core-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/core-site.xml" -once
 consul-template -template "/tmp/hdfs-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hdfs-site.xml" -once
 consul-template -template "/tmp/mapred-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/mapred-site.xml" -once
 consul-template -template "/tmp/yarn-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/yarn-site.xml" -once
