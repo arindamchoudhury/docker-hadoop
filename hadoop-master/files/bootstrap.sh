@@ -71,6 +71,7 @@ sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
 curl -X PUT -d 'formatted' http://localhost:8500/v1/kv/hadoop/namenodeformat
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/sbin/hadoop-daemon.sh start namenode
+sudo -E -u hdfs /usr/local/hadoop-2.7.2/sbin/hadoop-daemon.sh start secondarynamenode
 
 curl -X PUT -d 'started' http://localhost:8500/v1/kv/hadoop/namenode
 
