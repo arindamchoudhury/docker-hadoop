@@ -51,6 +51,7 @@ consul-template -template "/tmp/core-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/
 consul-template -template "/tmp/hdfs-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hdfs-site.xml" -once
 consul-template -template "/tmp/mapred-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/mapred-site.xml" -once
 consul-template -template "/tmp/yarn-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/yarn-site.xml" -once
+consul-template -template "/tmp/hadoop-env.sh.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh" -once
 
 python /etc/memory_config.py
 

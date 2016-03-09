@@ -8,3 +8,10 @@ FS_CHECKPOINT_DIR=/var/data/hadoop/hdfs/snn
 DFS_DATANODE_DATA_DIR=/var/data/hadoop/hdfs/dn
 DFS_NAMENODE_HANDLER_COUNT=100
 DFS_BLOCKSIZE=268435456
+
+#hadoop-env.sh
+JAVA_HOME=/usr/local/jdk1.7.0_80
+HADOOP_HOME=/usr/local/hadoop-2.7.2
+HADOOP_CONF_DIR=/usr/local/hadoop-2.7.2/etc/hadoop
+HADOOP_HEAPSIZE=1024
+HADOOP_NAMENODE_INIT_HEAPSIZE=1024m

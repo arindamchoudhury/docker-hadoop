@@ -30,10 +30,6 @@ rm /tmp/hadoop-2.7.2.tar.gz
 # Setup hadoop environment
 COPY files/hadoop.sh /etc/profile.d/hadoop.sh
 
-# Modify hadoop-env.sh
-RUN sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/local/jdk1.7.0_80\nexport HADOOP_PREFIX=/usr/local/hadoop-2.7.2\nexport HADOOP_HOME=/usr/local/hadoop-2.7.2\n:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
-RUN sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop-2.7.2/etc/hadoop/:' /usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh
-
 # move all configuration files into container
 #COPY files/ssh_config ~/.ssh/config/ssh_config
 
@@ -58,6 +54,8 @@ COPY files/hdfs-site.xml.ctmpl /tmp/hdfs-site.xml.ctmpl
 COPY files/core-site.xml.ctmpl /tmp/core-site.xml.ctmpl
 COPY files/mapred-site.xml.ctmpl /tmp/mapred-site.xml.ctmpl
 COPY files/yarn-site.xml.ctmpl /tmp/yarn-site.xml.ctmpl
+
+COPY files/hadoop-env.sh.ctmpl /tmp/hadoop-env.sh.ctmpl
 
 COPY files/memory_config.py /etc/memory_config.py
 RUN chmod +x /etc/memory_config.py

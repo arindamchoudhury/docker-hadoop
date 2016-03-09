@@ -18,7 +18,12 @@ curl -X PUT -d $FS_CHECKPOINT_DIR http://localhost:8500/v1/kv/FS_CHECKPOINT_DIR
 curl -X PUT -d $DFS_DATANODE_DATA_DIR http://localhost:8500/v1/kv/DFS_DATANODE_DATA_DIR
 
 
-#mapred-site.xml
+#hadoop-env
+curl -X PUT -d $JAVA_HOME http://localhost:8500/v1/kv/JAVA_HOME
+curl -X PUT -d $HADOOP_HOME http://localhost:8500/v1/kv/HADOOP_HOME
+curl -X PUT -d $HADOOP_CONF_DIR http://localhost:8500/v1/kv/HADOOP_CONF_DIR
+curl -X PUT -d $HADOOP_HEAPSIZE http://localhost:8500/v1/kv/HADOOP_HEAPSIZE
+curl -X PUT -d $HADOOP_NAMENODE_INIT_HEAPSIZE http://localhost:8500/v1/kv/HADOOP_NAMENODE_INIT_HEAPSIZE
 
 #curl -X PUT -d $ http://localhost:8500/v1/kv/
 
