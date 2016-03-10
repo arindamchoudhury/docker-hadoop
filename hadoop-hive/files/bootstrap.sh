@@ -23,12 +23,47 @@ curl -X PUT -d $HOSTNAME http://localhost:8500/v1/kv/NAMENODE_ADDR
 curl -X PUT -d $HOSTNAME http://localhost:8500/v1/kv/JOBHISTORY_ADDR
 curl -X PUT -d $HOSTNAME http://localhost:8500/v1/kv/YARN_RESOURCEMANGER_HOSTNAME
 
-#export putoamo=$(curl -s http://localhost:8500/v1/kv/NAMENODE_ADDR?raw)
+DFS_NAMEDIR=$(curl -s http://localhost:8500/v1/kv/DFS_NAMEDIR?raw)
+FS_CHECKPOINT_DIR=$(curl -s http://localhost:8500/v1/kv/FS_CHECKPOINT_DIR?raw)
+FS_CHECKPOINT_EDITS_DIR=$(curl -s http://localhost:8500/v1/kv/FS_CHECKPOINT_EDITS_DIR?raw)
+#export =$(curl -s http://localhost:8500/v1/kv/?raw)
+
+
+#make name dir
+NAMEDIRS=$(echo $DFS_NAMEDIR | tr "," "\n")
+
+for DIR in $NAMEDIRS
+do
+  mkdir -p $DIR
+  chown -R hdfs:hadoop $DIR
+done
+
+#make checkpoints dir
+CHECKPOINTDIRS=$(echo $FS_CHECKPOINT_DIR | tr "," "\n")
+
+for DIR in $CHECKPOINTDIRS
+do
+  mkdir -p $DIR
+  chown -R hdfs:hadoop $DIR
+done
+
+
+#create log dirs
+LOG_DIR=$(curl -s http://localhost:8500/v1/kv/LOG_DIR?raw)
+
+mkdir -p $LOG_DIR
+chgrp -R hadoop $LOG_DIR
+chmod -R g+rwxs $LOG_DIR
 
 consul-template -template "/tmp/core-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/core-site.xml" -once
 consul-template -template "/tmp/hdfs-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hdfs-site.xml" -once
 consul-template -template "/tmp/mapred-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/mapred-site.xml" -once
 consul-template -template "/tmp/yarn-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/yarn-site.xml" -once
+
+consul-template -template "/tmp/hadoop-env.sh.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh" -once
+consul-template -template "/tmp/yarn-env.sh.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/yarn-env.sh" -once
+consul-template -template "/tmp/mapred-env.sh.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/mapred-env.sh" -once
+consul-template -template "/tmp/hive-env.sh.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hive-env.sh" -once
 
 python /etc/memory_config.py
 
@@ -40,6 +75,7 @@ sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
 curl -X PUT -d 'formatted' http://localhost:8500/v1/kv/hadoop/namenodeformat
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/sbin/hadoop-daemon.sh start namenode
+sudo -E -u hdfs /usr/local/hadoop-2.7.2/sbin/hadoop-daemon.sh start secondarynamenode
 
 curl -X PUT -d 'started' http://localhost:8500/v1/kv/hadoop/namenode
 
