@@ -17,3 +17,4 @@ wget -c -O "hadoop-2.7.2.tar.gz" "http://apache.rediris.es/hadoop/common/hadoop-
 cd ../../hadoop-hive/tars
 
 wget -c -O "apache-hive-1.2.1-bin.tar.gz" "http://apache.rediris.es/hive/hive-1.2.1/apache-hive-1.2.1-bin.tar.gz"
+wget -c -O  "db-derby-10.12.1.1-bin.tar.gz" "http://ftp.cixug.es/apache//db/derby/db-derby-10.12.1.1/db-derby-10.12.1.1-bin.tar.gz"
