@@ -16,7 +16,7 @@ COPY tars/db-derby-10.12.1.1-bin.tar.gz /tmp/db-derby-10.12.1.1-bin.tar.gz
 
 #RUN wget -c -O "apache-hive-1.2.1-bin.tar.gz" "http://apache.rediris.es/hive/hive-1.2.1/apache-hive-1.2.1-bin.tar.gz" && \
 RUN tar zxf /tmp/apache-hive-1.2.1-bin.tar.gz -C /usr/local/ && \
-rm /tmp/apache-hive-1.2.1-bin.tar.gz &&
+rm /tmp/apache-hive-1.2.1-bin.tar.gz && \
 tar zxf /tmp/db-derby-10.12.1.1-bin.tar.gz -C /usr/local/ && \
 rm /tmp/db-derby-10.12.1.1-bin.tar.gz
 
