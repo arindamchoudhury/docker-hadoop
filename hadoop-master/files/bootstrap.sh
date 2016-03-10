@@ -23,9 +23,9 @@ curl -X PUT -d $HOSTNAME http://localhost:8500/v1/kv/NAMENODE_ADDR
 curl -X PUT -d $HOSTNAME http://localhost:8500/v1/kv/JOBHISTORY_ADDR
 curl -X PUT -d $HOSTNAME http://localhost:8500/v1/kv/YARN_RESOURCEMANGER_HOSTNAME
 
-export DFS_NAMEDIR=$(curl -s http://localhost:8500/v1/kv/DFS_NAMEDIR?raw)
-export FS_CHECKPOINT_DIR=$(curl -s http://localhost:8500/v1/kv/FS_CHECKPOINT_DIR?raw)
-export FS_CHECKPOINT_EDITS_DIR=$(curl -s http://localhost:8500/v1/kv/FS_CHECKPOINT_EDITS_DIR?raw)
+DFS_NAMEDIR=$(curl -s http://localhost:8500/v1/kv/DFS_NAMEDIR?raw)
+FS_CHECKPOINT_DIR=$(curl -s http://localhost:8500/v1/kv/FS_CHECKPOINT_DIR?raw)
+FS_CHECKPOINT_EDITS_DIR=$(curl -s http://localhost:8500/v1/kv/FS_CHECKPOINT_EDITS_DIR?raw)
 #export =$(curl -s http://localhost:8500/v1/kv/?raw)
 
 
@@ -46,6 +46,25 @@ do
   mkdir -p $DIR
   chown -R hdfs:hadoop $DIR
 done
+
+
+#create log dirs
+HADOOP_LOG_DIR=$(curl -s http://localhost:8500/v1/kv/HADOOP_LOG_DIR?raw)
+YARN_LOG_DIR=$(curl -s http://localhost:8500/v1/kv/YARN_LOG_DIR?raw)
+HADOOP_MAPRED_LOG_DIR=$(curl -s http://localhost:8500/v1/kv/HADOOP_MAPRED_LOG_DIR?raw)
+
+mkdir $HADOOP_LOG_DIR
+chgrp -R hadoop $HADOOP_LOG_DIR
+chmod -R g+rwxs $HADOOP_LOG_DIR
+
+mkdir $YARN_LOG_DIR
+chgrp -R hadoop $YARN_LOG_DIR
+chmod -R g+rwxs $YARN_LOG_DIR
+
+mkdir $HADOOP_MAPRED_LOG_DIR
+chgrp -R hadoop $HADOOP_MAPRED_LOG_DIR
+chmod -R g+rwxs $HADOOP_MAPRED_LOG_DIR
+
 
 consul-template -template "/tmp/core-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/core-site.xml" -once
 consul-template -template "/tmp/hdfs-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hdfs-site.xml" -once

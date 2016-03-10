@@ -46,10 +46,6 @@ useradd -g hadoop -m -s /bin/bash hdfs && \
 useradd -g hadoop -m -s /bin/bash mapred && \
 useradd -g hadoop -m -s /bin/bash hive
 
-RUN mkdir /var/log/hadoop && \
-chgrp -R hadoop /var/log/hadoop && \
-chmod -R g+rwxs /var/log/hadoop
-
 COPY files/hdfs-site.xml.ctmpl /tmp/hdfs-site.xml.ctmpl
 COPY files/core-site.xml.ctmpl /tmp/core-site.xml.ctmpl
 COPY files/mapred-site.xml.ctmpl /tmp/mapred-site.xml.ctmpl

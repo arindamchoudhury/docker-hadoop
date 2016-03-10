@@ -17,7 +17,7 @@ do
   sleep 3
 done
 
-export DFS_DATANODE_DATA_DIR=$(curl -s http://localhost:8500/v1/kv/DFS_DATANODE_DATA_DIR?raw)
+DFS_DATANODE_DATA_DIR=$(curl -s http://localhost:8500/v1/kv/DFS_DATANODE_DATA_DIR?raw)
 
 #make data dir
 DATADIRS=$(echo $DFS_DATANODE_DATA_DIR | tr "," "\n")
@@ -27,6 +27,18 @@ do
   mkdir -p $DIR
   chown -R hdfs:hadoop $DIR
 done
+
+#create log dirs
+HADOOP_LOG_DIR=$(curl -s http://localhost:8500/v1/kv/HADOOP_LOG_DIR?raw)
+YARN_LOG_DIR=$(curl -s http://localhost:8500/v1/kv/YARN_LOG_DIR?raw)
+
+mkdir $HADOOP_LOG_DIR
+chgrp -R hadoop $HADOOP_LOG_DIR
+chmod -R g+rwxs $HADOOP_LOG_DIR
+
+mkdir $YARN_LOG_DIR
+chgrp -R hadoop $YARN_LOG_DIR
+chmod -R g+rwxs $YARN_LOG_DIR
 
 consul-template -template "/tmp/core-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/core-site.xml" -once
 consul-template -template "/tmp/hdfs-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hdfs-site.xml" -once
