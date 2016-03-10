@@ -22,7 +22,7 @@ export HADOOP_JOB_HISTORYSERVER_HEAPSIZE={{key "HADOOP_JOB_HISTORYSERVER_HEAPSIZ
 export HADOOP_MAPRED_ROOT_LOGGER=INFO,RFA
 
 #export HADOOP_JOB_HISTORYSERVER_OPTS=
-export HADOOP_MAPRED_LOG_DIR={{key "HADOOP_MAPRED_LOG_DIR"}}
+export HADOOP_MAPRED_LOG_DIR="{{key "LOG_DIR"}}/mapred"
 #export HADOOP_JHS_LOGGER=INFO,RFA # Hadoop JobSummary logger.
 #export HADOOP_MAPRED_PID_DIR= # The pid files are stored. /tmp by default.
 #export HADOOP_MAPRED_IDENT_STRING= #A string representing this instance of hadoop. $USER by default

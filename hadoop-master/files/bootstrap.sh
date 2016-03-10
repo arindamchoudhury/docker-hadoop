@@ -49,22 +49,11 @@ done
 
 
 #create log dirs
-HADOOP_LOG_DIR=$(curl -s http://localhost:8500/v1/kv/HADOOP_LOG_DIR?raw)
-YARN_LOG_DIR=$(curl -s http://localhost:8500/v1/kv/YARN_LOG_DIR?raw)
-HADOOP_MAPRED_LOG_DIR=$(curl -s http://localhost:8500/v1/kv/HADOOP_MAPRED_LOG_DIR?raw)
+LOG_DIR=$(curl -s http://localhost:8500/v1/kv/LOG_DIR?raw)
 
-mkdir $HADOOP_LOG_DIR
-chgrp -R hadoop $HADOOP_LOG_DIR
-chmod -R g+rwxs $HADOOP_LOG_DIR
-
-mkdir $YARN_LOG_DIR
-chgrp -R hadoop $YARN_LOG_DIR
-chmod -R g+rwxs $YARN_LOG_DIR
-
-mkdir $HADOOP_MAPRED_LOG_DIR
-chgrp -R hadoop $HADOOP_MAPRED_LOG_DIR
-chmod -R g+rwxs $HADOOP_MAPRED_LOG_DIR
-
+mkdir -p $LOG_DIR
+chgrp -R hadoop $LOG_DIR
+chmod -R g+rwxs $LOG_DIR
 
 consul-template -template "/tmp/core-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/core-site.xml" -once
 consul-template -template "/tmp/hdfs-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hdfs-site.xml" -once

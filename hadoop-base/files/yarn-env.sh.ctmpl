@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 export HADOOP_YARN_HOME={{key "HADOOP_HOME"}}
-export YARN_LOG_DIR={{key "YARN_LOG_DIR"}}
+export YARN_LOG_DIR="{{key "LOG_DIR"}}/yarn"
 export JAVA_HOME={{key "JAVA_HOME"}}
 export HADOOP_COMMON_HOME={{key "HADOOP_HOME"}}
 
