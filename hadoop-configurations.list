@@ -24,3 +24,6 @@ YARN_NODEMANAGER_HEAPSIZE=1000
 
 #mapred-env.sh
 HADOOP_JOB_HISTORYSERVER_HEAPSIZE=100
+
+#hive-env.sh
+HIVE_CONF_DIR=/usr/local/apache-hive-1.2.1-bin/conf

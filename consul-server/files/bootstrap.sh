@@ -34,6 +34,10 @@ curl -X PUT -d $YARN_NODEMANAGER_HEAPSIZE http://localhost:8500/v1/kv/YARN_NODEM
 #mapred-env
 curl -X PUT -d $HADOOP_JOB_HISTORYSERVER_HEAPSIZE http://localhost:8500/v1/kv/HADOOP_JOB_HISTORYSERVER_HEAPSIZE
 
+#hive-env
+curl -X PUT -d $ http://localhost:8500/v1/kv/
+curl -X PUT -d $HIVE_CONF_DIR http://localhost:8500/v1/kv/HIVE_CONF_DIR
+
 #curl -X PUT -d $ http://localhost:8500/v1/kv/
 
 curl -X PUT -d 'done' http://localhost:8500/v1/kv/hadoop/hadoopconfiguration
