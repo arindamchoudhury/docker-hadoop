@@ -51,17 +51,17 @@
   </property>
   <property>
     <name>hive.exec.local.scratchdir</name>
-    <value>${system:java.io.tmpdir}/${system:user.name}</value>
+    <value>/tmp/${user.name}</value>
     <description>Local scratch space for Hive jobs</description>
   </property>
   <property>
     <name>hive.downloaded.resources.dir</name>
-    <value>${system:java.io.tmpdir}/${hive.session.id}_resources</value>
+    <value>/tmp/${user.name}_resources</value>
     <description>Temporary local directory for added resources in the remote file system.</description>
   </property>
   <property>
     <name>hive.scratch.dir.permission</name>
-    <value>700</value>
+    <value>733</value>
     <description>The permission for the user specific scratch directories that get created.</description>
   </property>
   <property>
