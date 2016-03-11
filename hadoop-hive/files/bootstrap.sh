@@ -54,6 +54,7 @@ LOG_DIR=$(curl -s http://localhost:8500/v1/kv/LOG_DIR?raw)
 mkdir -p $LOG_DIR
 chgrp -R hadoop $LOG_DIR
 chmod -R g+rwxs $LOG_DIR
+mkdir -p /var/log/hadoop/hcat
 
 consul-template -template "/tmp/core-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/core-site.xml" -once
 consul-template -template "/tmp/hdfs-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hdfs-site.xml" -once
@@ -69,6 +70,9 @@ python /etc/memory_config.py
 
 chgrp -R hadoop $HADOOP_PREFIX
 chmod -R g+rwxs $HADOOP_PREFIX
+
+chgrp -R hadoop $HIVE_HOME
+chmod -R g+rwxs $HIVE_HOME
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs namenode -format
 
