@@ -101,12 +101,16 @@ sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -mkdir -p /tmp/hadoop-yarn
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chown yarn:hadoop /tmp/hadoop-yarn
 
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -mkdir -p /user/hive/warehouse
+sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chown hive:hadoop /user/hive
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chmod g+w /tmp
 sudo -E -u hdfs /usr/local/hadoop-2.7.2/bin/hdfs dfs -chmod g+w /user/hive/warehouse
 
 sudo -E -u yarn /usr/local/hadoop-2.7.2/sbin/mr-jobhistory-daemon.sh start historyserver
 
 curl -X PUT -d 'started' http://localhost:8500/v1/kv/hadoop/historyserver
+
+cp /usr/local/db-derby-10.12.1.1-bin/lib/derbyclient.jar /usr/local/apache-hive-1.2.1-bin/lib
+cp /usr/local/db-derby-10.12.1.1-bin/lib/derbytools.jar /usr/local/apache-hive-1.2.1-bin/lib
 
 curl -X PUT -d 'started' http://localhost:8500/v1/kv/hadoop/finished
 

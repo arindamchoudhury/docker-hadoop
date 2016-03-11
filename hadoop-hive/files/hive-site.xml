@@ -46,7 +46,7 @@
   </property>
   <property>
     <name>hive.exec.scratchdir</name>
-    <value>/tmp/hive</value>
+    <value>/tmp/hive-${user.name}</value>
     <description>HDFS root scratch dir for Hive jobs which gets created with write all (733) permission. For each connecting user, an HDFS scratch dir: ${hive.exec.scratchdir}/&lt;username&gt; is created, with ${hive.scratch.dir.permission}.</description>
   </property>
   <property>
@@ -395,7 +395,7 @@
   </property>
   <property>
     <name>javax.jdo.option.ConnectionURL</name>
-    <value>jdbc:derby://localhost:1527/metastore_db;create=true</value>
+    <value>jdbc:derby://master:1527/metastore_db;create=true</value>
     <description>JDBC connect string for a JDBC metastore</description>
   </property>
   <property>
@@ -789,7 +789,7 @@
   </property>
   <property>
     <name>javax.jdo.option.ConnectionDriverName</name>
-    <value>org.apache.derby.jdbc.EmbeddedDriver</value>
+    <value>org.apache.derby.jdbc.ClientDriver</value>
     <description>Driver class name for a JDBC metastore</description>
   </property>
   <property>
