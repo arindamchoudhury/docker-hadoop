@@ -64,7 +64,8 @@ consul-template -template "/tmp/yarn-site.xml.ctmpl:/usr/local/hadoop-2.7.2/etc/
 consul-template -template "/tmp/hadoop-env.sh.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hadoop-env.sh" -once
 consul-template -template "/tmp/yarn-env.sh.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/yarn-env.sh" -once
 consul-template -template "/tmp/mapred-env.sh.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/mapred-env.sh" -once
-consul-template -template "/tmp/hive-env.sh.ctmpl:/usr/local/hadoop-2.7.2/etc/hadoop/hive-env.sh" -once
+
+consul-template -template "/tmp/hive-env.sh.ctmpl:/usr/local/apache-hive-1.2.1-bin/conf/hive-env.sh" -once
 
 python /etc/memory_config.py
 
