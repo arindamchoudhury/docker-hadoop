@@ -109,6 +109,8 @@ sudo -E -u yarn /usr/local/hadoop-2.7.2/sbin/mr-jobhistory-daemon.sh start histo
 
 curl -X PUT -d 'started' http://localhost:8500/v1/kv/hadoop/historyserver
 
+nohup /usr/local/db-derby-10.12.1.1-bin/bin/startNetworkServer -h 0.0.0.0 &
+
 cp /usr/local/db-derby-10.12.1.1-bin/lib/derbyclient.jar /usr/local/apache-hive-1.2.1-bin/lib
 cp /usr/local/db-derby-10.12.1.1-bin/lib/derbytools.jar /usr/local/apache-hive-1.2.1-bin/lib
 
