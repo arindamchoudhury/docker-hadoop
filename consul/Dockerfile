@@ -7,9 +7,6 @@ ENV DEBIAN_FRONTEND noninteractive
 EXPOSE 8300 8301 8301/udp 8302 8302/udp 8400 8500 53 53/udp
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-ENV CONSUL_VERSION 0.6.3
-ENV CONSUL_SHA256 b0532c61fec4a4f6d130c893fd8954ec007a6ad93effbe283a39224ed237e250
-
 RUN apt-get update && \
 apt-get install -y unzip wget curl vim
 
@@ -30,9 +27,6 @@ rm /tmp/consul-template_0.13.0_linux_amd64.zip
 
 ##Setup Consul environment
 COPY files/consul.sh /etc/profile.d/consul.sh
-
-ENV PATH /usr/local/consul/bin:$PATH
-
 
 
 
